@@ -1,0 +1,48 @@
+body {
+    font-family: sans-serif;
+    background: url("../images/weather.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+.main-section {
+    margin: 0 auto;
+    margin-top: 130px;
+    padding: 0;
+}
+
+.modal-content {
+    background-color: #3b4652 !important;
+    opacity: 0.95;
+    padding: 0 18px;
+    padding-bottom: 5%;
+    box-shadow: 0px 0px 3px #848484;
+}
+
+.user-img {
+    margin-top: -50px;
+    margin-bottom: 35px;
+}
+
+.user-img img {
+    height: 100px;
+    width: 100px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px #848484;
+}
+
+button{
+    width: 50%;
+}
+
+.btn{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background-color: #27c2a5;
+    color: #fff;
+    font-size: 15px;
+}
+
+
+.register-new-user a{
+    color: #c2fbfe;
+    font-size: 12px;
+}
