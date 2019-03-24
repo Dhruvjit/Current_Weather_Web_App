@@ -1,19 +1,27 @@
 package com.weatherapi.test.weather_api.rest;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.stereotype.Controller;
+import com.weatherapi.test.weather_api.config.WeatherParamsConfig;
+import com.weatherapi.test.weather_api.model.Weather;
+import com.weatherapi.test.weather_api.model.WeatherQueryParams;
+import com.weatherapi.test.weather_api.service.JsonParserService;
+import com.weatherapi.test.weather_api.service.ReadJsonObjectService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.weatherapi.test.weather_api.model.WeatherQueryParams;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 
-@Controller
+
+@RestController
 public class WeatherRestController {
+
+    @Autowired
+    private ReadJsonObjectService readJsonObjectService;
 
     /*
     * home page that redirects to register
@@ -26,16 +34,16 @@ public class WeatherRestController {
 
     /*
      * get weather data from open weather map api
+     * and set json result in model
      * */
     @GetMapping("/checkWeather")
     public String checkWeather(@RequestParam(name="city", required=true, defaultValue="Munich") String city, Model model)
-        throws JsonParseException, IOException {
-        String appid = "b6907d289e10d714a6e88b30761fae22";
-        String weatherUrl = "https://samples.openweathermap.org/data/2.5/weather?q="+city+"&appid="+appid;
+            throws IOException {
+        String appid = "47c473417a4db382820a8d058f2db194";
+        String weatherUrl = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&APPID="+appid+"&units=metric";
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject(weatherUrl,String.class);
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode actualObj = mapper.readTree(result);
+        Weather weather = readJsonObjectService.setWeatherModel(result);
         model.addAttribute("city", city);
         return "weather_history";
     }

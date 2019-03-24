@@ -4,8 +4,14 @@ import lombok.Data;
 
 @Data
 public class Weather {
-    private String id;
-    private String main;
+    private String headline;
     private String description;
     private String icon;
+    private String city;
+    private String currentTemp;
+    private String minTemp;
+    private String maxTemp;
+    private String sunrise;
+    private String sunset;
+    private String unit;
 }

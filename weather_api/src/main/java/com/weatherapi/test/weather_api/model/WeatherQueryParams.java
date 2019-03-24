@@ -1,5 +1,6 @@
 package com.weatherapi.test.weather_api.model;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
 
 /*
@@ -9,4 +10,5 @@ import lombok.Data;
 public class WeatherQueryParams {
     String city;
     String appid;
+    private JsonNode result;
 }
