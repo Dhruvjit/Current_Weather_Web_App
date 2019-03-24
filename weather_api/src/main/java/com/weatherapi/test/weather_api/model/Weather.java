@@ -2,12 +2,23 @@ package com.weatherapi.test.weather_api.model;
 
 import lombok.Data;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="weather")
 @Data
 public class Weather {
-    private String headline;
-    private String description;
-    private String icon;
+
+    @Id
+    @Column(name = "city",unique = true)
     private String city;
+
+    private String headline;
+
+    @Column(name = "descriptions")
+    private String description;
+
+    private String icon;
     private String currentTemp;
     private String minTemp;
     private String maxTemp;

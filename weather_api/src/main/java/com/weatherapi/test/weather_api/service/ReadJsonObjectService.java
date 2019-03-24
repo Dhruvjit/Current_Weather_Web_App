@@ -27,15 +27,15 @@ public class ReadJsonObjectService {
         JsonNode jsonResultObject = weatherQueryFactory.getResult();
 
         // Extract string from json result
-        weatherFactory.setIcon(jsonResultObject.get("weather").get(0).get("icon").toString());
-        weatherFactory.setDescription(jsonResultObject.get("weather").get(0).get("description").toString());
-        weatherFactory.setHeadline(jsonResultObject.get("weather").get(0).get("main").toString());
-        weatherFactory.setCurrentTemp(jsonResultObject.get("main").get("temp").toString());
-        weatherFactory.setMinTemp(jsonResultObject.get("main").get("temp_min").toString());
-        weatherFactory.setMaxTemp(jsonResultObject.get("main").get("temp_max").toString());
-        weatherFactory.setSunrise(jsonResultObject.get("sys").get("sunrise").toString());
-        weatherFactory.setSunset(jsonResultObject.get("sys").get("sunset").toString());
-        weatherFactory.setCity(jsonResultObject.get("name").toString());
+        weatherFactory.setIcon(jsonResultObject.get("weather").get(0).get("icon").toString().replaceAll("^\"|\"$",""));
+        weatherFactory.setDescription(jsonResultObject.get("weather").get(0).get("description").toString().replaceAll("^\"|\"$",""));
+        weatherFactory.setHeadline(jsonResultObject.get("weather").get(0).get("main").toString().replaceAll("^\"|\"$",""));
+        weatherFactory.setCurrentTemp(jsonResultObject.get("main").get("temp").toString().replaceAll("^\"|\"$",""));
+        weatherFactory.setMinTemp(jsonResultObject.get("main").get("temp_min").toString().replaceAll("^\"|\"$",""));
+        weatherFactory.setMaxTemp(jsonResultObject.get("main").get("temp_max").toString().replaceAll("^\"|\"$",""));
+        weatherFactory.setSunrise(jsonResultObject.get("sys").get("sunrise").toString().replaceAll("^\"|\"$",""));
+        weatherFactory.setSunset(jsonResultObject.get("sys").get("sunset").toString().replaceAll("^\"|\"$",""));
+        weatherFactory.setCity(jsonResultObject.get("name").toString().replaceAll("^\"|\"$",""));
         weatherFactory.setUnit("Celsius");
         return weatherFactory;
     }
