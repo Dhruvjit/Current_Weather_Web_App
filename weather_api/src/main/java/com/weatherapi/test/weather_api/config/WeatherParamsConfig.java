@@ -4,7 +4,6 @@ import com.weatherapi.test.weather_api.model.Weather;
 import com.weatherapi.test.weather_api.model.WeatherQueryParams;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.weatherapi.test.weather_api.service.JsonParserService;
 
 @Configuration
 public class WeatherParamsConfig {
@@ -18,4 +17,8 @@ public class WeatherParamsConfig {
     public Weather getWeatherInfo(){
         return new Weather();
     }
+
+    @Bean
+    public WeatherDatabaseConfig getWeatherDatabaseConfig(){return new WeatherDatabaseConfig();}
+
 }

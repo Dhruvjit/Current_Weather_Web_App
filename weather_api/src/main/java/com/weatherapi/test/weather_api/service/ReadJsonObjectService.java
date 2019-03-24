@@ -37,6 +37,7 @@ public class ReadJsonObjectService {
         weatherFactory.setSunset(jsonResultObject.get("sys").get("sunset").toString().replaceAll("^\"|\"$",""));
         weatherFactory.setCity(jsonResultObject.get("name").toString().replaceAll("^\"|\"$",""));
         weatherFactory.setUnit("Celsius");
+
         return weatherFactory;
     }
 }
