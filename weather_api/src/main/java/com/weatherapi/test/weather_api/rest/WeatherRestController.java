@@ -1,29 +1,31 @@
 package com.weatherapi.test.weather_api.rest;
 
 import com.weatherapi.test.weather_api.config.WeatherDatabaseConfig;
-import com.weatherapi.test.weather_api.dao.SaveWeatherData;
+import com.weatherapi.test.weather_api.dao.WeatherDatabase;
 import com.weatherapi.test.weather_api.model.Weather;
+import com.weatherapi.test.weather_api.service.GetWeatherService;
 import com.weatherapi.test.weather_api.service.ReadJsonObjectService;
-import com.weatherapi.test.weather_api.service.SaveToDatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 
 @RestController
 public class WeatherRestController {
 
+    private final static Logger LOGGER = Logger.getLogger(WeatherDatabaseConfig.class.getName());
 
     @Autowired
-    private SaveToDatabaseService saveToDatabaseService;
+    private WeatherDatabase weatherDatabase;
     @Autowired
-    private SaveWeatherData saveWeatherData;
+    private GetWeatherService getWeatherService;
+
     /*
     * home page that redirects to register
     * */
@@ -40,12 +42,9 @@ public class WeatherRestController {
     @GetMapping("/checkWeather")
     public String checkWeather(@RequestParam(name="city", required=true, defaultValue="none") String city, Model model)
             throws IOException,HttpClientErrorException.NotFound {
-        String appid = "47c473417a4db382820a8d058f2db194";
-        String weatherUrl = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&APPID="+appid+"&units=metric";
-        RestTemplate restTemplate = new RestTemplate();
-        String result = restTemplate.getForObject(weatherUrl,String.class);
-        saveWeatherData.saveData(saveToDatabaseService.extractWeatherObject(result));
-
+        Weather result = getWeatherService.getNewWeatherObject(city);
+        weatherDatabase.saveData(result);
+        //weatherDatabase.updateData("London");
         model.addAttribute("city", city);
         return "weather_history";
     }

@@ -21,9 +21,9 @@ public class ReadJsonObjectService {
     @Autowired
     private JsonParserService jsonParserService;
 
-    public Weather setWeatherModel(String result)
+    public Weather setWeatherModel(String jsonStringQuery)
             throws IOException{
-        weatherQueryFactory.setResult(jsonParserService.parseJsonData(result));
+        weatherQueryFactory.setResult(jsonParserService.parseJsonData(jsonStringQuery));
         JsonNode jsonResultObject = weatherQueryFactory.getResult();
 
         // Extract string from json result
