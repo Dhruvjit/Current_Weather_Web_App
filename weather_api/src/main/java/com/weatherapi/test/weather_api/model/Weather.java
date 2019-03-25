@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Weather {
 
     @Id
-    @Column(name = "city")
+    @Column(name = "city",unique = true)
     private String city;
 
     private String headline;

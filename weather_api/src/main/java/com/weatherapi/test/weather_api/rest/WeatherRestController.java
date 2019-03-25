@@ -4,7 +4,6 @@ import com.weatherapi.test.weather_api.config.WeatherDatabaseConfig;
 import com.weatherapi.test.weather_api.dao.WeatherDatabase;
 import com.weatherapi.test.weather_api.model.Weather;
 import com.weatherapi.test.weather_api.service.GetWeatherService;
-import com.weatherapi.test.weather_api.service.ReadJsonObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

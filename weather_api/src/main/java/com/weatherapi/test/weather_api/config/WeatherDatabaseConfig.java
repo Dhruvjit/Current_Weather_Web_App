@@ -4,7 +4,6 @@ import com.weatherapi.test.weather_api.model.Weather;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import java.io.IOException;
 import java.util.Objects;
 import java.util.logging.Logger;
 
@@ -107,7 +106,7 @@ public class WeatherDatabaseConfig {
             }
             session.getTransaction().commit();
             LOGGER.info("City parameters Updated!");
-            return getPreviousWeatherWithCityName;
+            return updatedNewWeather;
         } catch (NullPointerException e){
             LOGGER.info("No Weather value returned, City name is invalid or is not present");
             return null;

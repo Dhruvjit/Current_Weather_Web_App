@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 /*
 * use this class only for test purpose -> testing database connection with JDBC url
 * */
-public class TestDatabaseConnection {
+public class CheckDatabaseConnection {
 
     public void testDb(){
 

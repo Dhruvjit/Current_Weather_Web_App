@@ -21,4 +21,6 @@ public class WeatherParamsConfig {
     @Bean
     public WeatherDatabaseConfig getWeatherDatabaseConfig(){return new WeatherDatabaseConfig();}
 
+    @Bean
+    public UserDatabaseConfig getUserDatabaseConfig(){return new UserDatabaseConfig();}
 }
