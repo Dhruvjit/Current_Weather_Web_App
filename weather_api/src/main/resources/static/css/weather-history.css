@@ -23,9 +23,6 @@ body{
     overflow-x: hidden;
 }
 
-.weather-contianer{
-    display:flex;
-}
 
 .card {
     position: fixed;
@@ -34,7 +31,6 @@ body{
     left: 20%;
     width: 49%;
     min-height:22.5em;
-    background: #007bff;
     border-radius: .2em;
     padding-top:1em;
     padding-left: 1em;
@@ -48,23 +44,34 @@ body{
     color:#5b5b5b;
 }
 
-.sun {
+#firstname {
     margin-left: 10%;
     margin-top:10px;
     width:4em;
     height:4em;
-    border-radius: 2.5em;
-    background: #FBD80A;
     margin-top: 1em;
   }
 .temp {
-    margin-left: 20%;
+    display: flex;
+    justify-content: space-around;
     font-family:Roboto;
     font-weight: 300;
     font-size: 8.5em;
     margin-top:-.75em;
     color:#5b5b5b;
   }
+
+  #headline {
+    font-family:Roboto;
+    font-weight: 300;
+    font-size: .60em;
+    margin-top:0.70em;
+    color:#5b5b5b;
+  }
+  #headline:before {
+    content:url('https://i.imgur.com/luN0Jmq.png');
+  }
+
 .variations {
     font-family:Roboto;
     font-wight:300;
@@ -75,12 +82,9 @@ body{
 .mph {
      font-size:.8em;
   }
-.headline:before {
-    content:url('https://i.imgur.com/luN0Jmq.png');
-  }
+
 .forecast {
     width:100%;
-    margin:0 auto;
   }
 .day {
     display:block;
@@ -100,9 +104,3 @@ body{
 .lowLimit {
     color: #8c8c8c;
   }
-.cloudy {
-    content: url('https://i.imgur.com/0PIYfV8.png');
-  }
-.sunny {
-    content: url('https://i.imgur.com/RdBr2SD.png');
-}

@@ -39,43 +39,43 @@
     </div>
 
     <!-- Weather Card that updates dynamically -->
-    <div class="weather-contianer">
-        <div class="card">
-            <span class="city" th:text="${city}"></span>
-            <br>
-            <div class="sun"></div>
-            <span class="temp" th:text="${currentTemp}">Oops!</span>
-            <span>
-                <ul class="variations">
-                  <li><span class="headline" th:text="${headline}">Oops!</span></li>
-                </ul>
-            </span>
-            <div class="forecast clear">
-                <div class="day"> Max and Min Temp
-                    <br> <span class="cloudy"></span> <br> <span class="highLimit" th:text="${maxTemp}">oops!</span> <br> <span class="lowLimit" th:text="${minTemp}">oops!</span>
-                </div>
-                <div class="day">Sunrise and Sunset
-                    <br> <span class="sunny"></span> <br> <span class="highLimit" th:text="${sunrise}">oops!</span> <br> <span class="lowLimit" th:text="${sunset}">oops!</span>
-                </div>
-                <div class="day">Description
-                    <br> <span class="sunny"></span> <br> <span class="highLimit" th:text="${description}">oops!</span>
-                </div>
-                <div class="day">
-                    <br>
-                        <button type="button" class="btn btn-default btn-sm">
-                            <span class="glyphicon glyphicon-plus"></span> Add
-                        </button>
-                    <br>
-                        <button type="button" class="btn btn-default btn-sm">
-                            <span class="glyphicon glyphicon-plus"></span> Update
-                        </button>
-                    <br>
-                        <button type="button" class="btn btn-default btn-sm">
-                            <span class="glyphicon glyphicon-plus"></span> Delete
-                        </button>
-                </div>
+    <div class="card">
+        <span class="city" th:text="${city}"></span>
+        <br>
+        <br>
+        <div class="temp">
+            <div id="headline" th:text="${headline}">Oops!</div>
+            <div><img src="" id="mainWeatherIcon" width="100" height="100"></div>
+            <div th:text="${currentTemp}">Oops!</div>
+        </div>
+
+        <div class="forecast">
+            <div class="day"> Headline
+                <br> <img src="https://cdn0.iconfinder.com/data/icons/weather-circular-2/90/82-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${headline}">oops!</span>
+            </div>
+            <div class="day"> Max and Min Temp
+                <br> <img src="https://cdn1.iconfinder.com/data/icons/luchesa-2/128/Temperature-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${maxTemp}">oops!</span> <br> <span class="lowLimit" th:text="${minTemp}">oops!</span>
+            </div>
+            <div class="day">Sunrise and Sunset
+                <br> <img src="https://cdn1.iconfinder.com/data/icons/landscape-v-1/512/Landscape_Circle_1_512px_00007-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${sunrise}">oops!</span> <br> <span class="lowLimit" th:text="${sunset}">oops!</span>
+            </div>
+            <div class="day">Description
+                <br> <img src="https://cdn0.iconfinder.com/data/icons/weather-and-forecast-2/80/Weather_forecast_nature-14-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${description}">oops!</span>
             </div>
         </div>
+
+        <div class="CRUDicons">
+        </div>
+
     </div>
+
+    <!-- script to form icon url from `icon`-->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+            let icon = /*[[${icon}]]*/ 'default';
+        /*]]>*/
+        let icon_url = "http://openweathermap.org/img/w/"+icon+".png"
+        document.getElementById('mainWeatherIcon').src = icon_url;
+    </script>
 </body>
 </html>

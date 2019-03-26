@@ -37,7 +37,10 @@ public class WeatherRestController {
         Weather result = getWeatherService.getNewWeatherObject(city);
         //weatherDatabase.saveData(result);
         //weatherDatabase.updateData("London");
-        model.addAttribute("city", city+"'s "+"weather");
+        city=city+"'s "+"weather";
+        //String icon = "http://openweathermap.org/img/w/" + result.getIcon() + ".png";
+
+        model.addAttribute("city",city);
         model.addAttribute("headline", result.getHeadline());
         model.addAttribute("description", result.getDescription());
         model.addAttribute("icon", result.getIcon());
