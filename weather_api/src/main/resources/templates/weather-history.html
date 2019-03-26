@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <title>Weather History</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/weather-history.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+</head>
+<body>
+    <!-- Image and text -->
+    <nav class="navbar navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">
+            <img src="images/weather_icon.png" width="40" height="40" class="d-inline-block align-top" alt="weather history">
+            Current Weather App
+        </a>
+        <form class="navbar-form" action="#" th:action="@{/login}" method="post">
+            <button class="btn btn-warning my-2 my-sm-0" type="submit">Logout</button>
+        </form>
+    </nav>
+
+    <!-- City search form and button -->
+    <div class="search-wrapper">
+        <form class="navbar-form" action="#" th:action="@{/checkWeather}" method="get">
+            <div class="row">
+                <div class="col-lg-8">
+                    <input type="text" name="city" class="form-control" placeholder="Type the name of the city..">
+                </div>
+                <div class="col-sm-4">
+                    <button type="submit" class="btn btn-primary">Search Weather</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Weather Card that updates dynamically -->
+    <div class="weather-contianer">
+        <div class="card">
+            <span class="city" th:text="${city}"></span>
+            <br>
+            <div class="sun"></div>
+            <span class="temp" th:text="${currentTemp}">Oops!</span>
+            <span>
+                <ul class="variations">
+                  <li><span class="headline" th:text="${headline}">Oops!</span></li>
+                </ul>
+            </span>
+            <div class="forecast clear">
+                <div class="day"> Max and Min Temp
+                    <br> <span class="cloudy"></span> <br> <span class="highLimit" th:text="${maxTemp}">oops!</span> <br> <span class="lowLimit" th:text="${minTemp}">oops!</span>
+                </div>
+                <div class="day">Sunrise and Sunset
+                    <br> <span class="sunny"></span> <br> <span class="highLimit" th:text="${sunrise}">oops!</span> <br> <span class="lowLimit" th:text="${sunset}">oops!</span>
+                </div>
+                <div class="day">Description
+                    <br> <span class="sunny"></span> <br> <span class="highLimit" th:text="${description}">oops!</span>
+                </div>
+                <div class="day">
+                    <br>
+                        <button type="button" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-plus"></span> Add
+                        </button>
+                    <br>
+                        <button type="button" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-plus"></span> Update
+                        </button>
+                    <br>
+                        <button type="button" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-plus"></span> Delete
+                        </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

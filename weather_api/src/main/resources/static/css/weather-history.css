@@ -23,12 +23,16 @@ body{
     overflow-x: hidden;
 }
 
+.weather-contianer{
+    display:flex;
+}
+
 .card {
     position: fixed;
     margin-top: 200px;
     right: 20%;
     left: 20%;
-    width: 50%;
+    width: 49%;
     min-height:22.5em;
     background: #007bff;
     border-radius: .2em;
@@ -40,11 +44,13 @@ body{
 .city {
     font-family: Roboto;
     font-weight: 300;
-    font-size: 1.8em;
+    font-size: 2.5em;
     color:#5b5b5b;
 }
 
 .sun {
+    margin-left: 10%;
+    margin-top:10px;
     width:4em;
     height:4em;
     border-radius: 2.5em;
@@ -52,7 +58,7 @@ body{
     margin-top: 1em;
   }
 .temp {
-    float:right;
+    margin-left: 20%;
     font-family:Roboto;
     font-weight: 300;
     font-size: 8.5em;
@@ -69,7 +75,7 @@ body{
 .mph {
      font-size:.8em;
   }
-.speed:before {
+.headline:before {
     content:url('https://i.imgur.com/luN0Jmq.png');
   }
 .forecast {
@@ -81,20 +87,17 @@ body{
     width: 21.5%;
     height:9em;
     float:left;
-    margin: 0 .375em .5em;
+    margin-left: 2px;
     text-align:center;
     font-family:Roboto;
     color: #5b5b5b;
     border-right:.1em solid #d9d9d9;
     line-height: 2;
   }
-.fri {
-    border-right:none;
-  }
-.highTemp {
+.highLimit {
     font-weight:bold;
   }
-.lowTemp {
+.lowLimit {
     color: #8c8c8c;
   }
 .cloudy {
