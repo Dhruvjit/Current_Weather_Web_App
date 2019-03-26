@@ -1,6 +1,6 @@
 package com.weatherapi.test.weather_api.config;
 
-import com.weatherapi.test.weather_api.model.User;
+import com.weatherapi.test.weather_api.model.UserData;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -11,76 +11,76 @@ import java.util.logging.Logger;
 public class UserDatabaseConfig {
     private final static Logger LOGGER = Logger.getLogger(WeatherDatabaseConfig.class.getName());
 
-    public void CreateUserInDatabase(User user){
+    public void CreateUserInDatabase(UserData userData){
         // Create Session Factory
         SessionFactory factory = new Configuration().
                 configure("hibernate.cfg.xml").
-                addAnnotatedClass(User.class).
+                addAnnotatedClass(UserData.class).
                 buildSessionFactory();
         // Create Session
         Session session = factory.getCurrentSession();
         // Begin Transaction
         session.getTransaction().begin();
         try{
-            LOGGER.info("created new User...");
-            System.out.println(user);
-            session.saveOrUpdate(user);
+            LOGGER.info("created new UserData...");
+            System.out.println(userData);
+            session.saveOrUpdate(userData);
             session.getTransaction().commit();
-            LOGGER.info("new User created!");
+            LOGGER.info("new UserData created!");
         } finally {
             factory.close();
         }
     }
 
-    public User readUserFromDatabase(String name){
+    public UserData readUserFromDatabase(String name){
         // Create Session Factory
         SessionFactory factory = new Configuration().
                 configure("hibernate.cfg.xml").
-                addAnnotatedClass(User.class).
+                addAnnotatedClass(UserData.class).
                 buildSessionFactory();
         // Create Session
         Session session = factory.getCurrentSession();
         // Begin Transaction
         session.getTransaction().begin();
-        User user;
+        UserData userData;
         try{
             LOGGER.info("fetching user from database...");
-            user = (User) session.get(User.class,name);
-            System.out.println(user);
+            userData = (UserData) session.get(UserData.class,name);
+            System.out.println(userData);
             session.getTransaction().commit();
-            LOGGER.info("reading weather object done!");
-            return user;
+            LOGGER.info("reading user object done!");
+            return userData;
         } catch (NullPointerException e){
-            LOGGER.info("No Weather value returned, City name is invalid or is not present");
+            LOGGER.info("No user value returned, username is invalid or is not present");
             return null;
         } finally {
             factory.close();
         }
     }
 
-    public User updateUserInDatabase(User updatedNewUser, String user){
+    public UserData updateUserInDatabase(UserData updatedNewUserData, String user){
         // Create Session Factory
         SessionFactory factory = new Configuration().
                 configure("hibernate.cfg.xml").
-                addAnnotatedClass(User.class).
+                addAnnotatedClass(UserData.class).
                 buildSessionFactory();
         // Create Session
         Session session = factory.getCurrentSession();
         // Begin Transaction
         session.getTransaction().begin();
-        User previousUser;
+        UserData previousUserData;
         try{
             LOGGER.info("reading the user data...");
-            previousUser = (User) session.get(User.class,user);
-            if(Objects.equals(updatedNewUser,previousUser)){
+            previousUserData = (UserData) session.get(UserData.class,user);
+            if(Objects.equals(updatedNewUserData, previousUserData)){
                 LOGGER.info("user already exists and parameters are same");
             }else{
                 session.clear();
-                session.merge(updatedNewUser);
+                session.merge(updatedNewUserData);
             }
             session.getTransaction().commit();
             LOGGER.info("current user parameters Updated!");
-            return updatedNewUser;
+            return updatedNewUserData;
         } catch (NullPointerException e){
             LOGGER.info("no user value returned, username is invalid or is not present");
             return null;

@@ -1,7 +1,7 @@
 package com.weatherapi.test.weather_api.dao;
 
 import com.weatherapi.test.weather_api.config.UserDatabaseConfig;
-import com.weatherapi.test.weather_api.model.User;
+import com.weatherapi.test.weather_api.model.UserData;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
@@ -12,16 +12,16 @@ public class UserDatabase {
     ApplicationContext factory = new AnnotationConfigApplicationContext(UserDatabaseConfig.class);
     UserDatabaseConfig userDatabaseConfig = factory.getBean(UserDatabaseConfig.class);
 
-    public void saveData(User user){
-        userDatabaseConfig.CreateUserInDatabase(user);
+    public void saveData(UserData userData){
+        userDatabaseConfig.CreateUserInDatabase(userData);
     }
 
-    public void updateData(String user){
-        User newUser = new User();
-        userDatabaseConfig.updateUserInDatabase(newUser,user);
+    public UserData updateData(String user){
+        UserData newUserData = new UserData();
+        return userDatabaseConfig.updateUserInDatabase(newUserData,user);
     }
 
-    public void readData(String user){
-        userDatabaseConfig.readUserFromDatabase(user);
+    public UserData readData(String user){
+        return userDatabaseConfig.readUserFromDatabase(user);
     }
 }

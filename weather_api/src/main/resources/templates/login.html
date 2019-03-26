@@ -18,26 +18,29 @@
         <div class="col-sm-8 main-section">
             <div class="modal-content">
 
-                <div class="col-12 user-img">
+                <div class="col-12 userData-img">
                     <img src="images/face.png" alt="person">
                 </div>
 
-                <form class="col-12">
-
+                <form class="col-12" action="#" th:action="@{/login}" th:object="${userData}" method="post">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Enter Username">
+                        <input type="text" name="username" class="form-control" placeholder="Enter Username">
+                        <input type="password" name="password" class="form-control" placeholder="Enter Password">
                     </div>
-
-                    <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Enter Password">
-                    </div>
-
                     <button type="submit" class="btn"><i class="fas fa-sign-in-alt"></i> Login </button>
-
                 </form>
 
-                <div class="col-12 register-new-user">
-                    <a href="#">New User? Register</a>
+                <!-- validate user and show error message -->
+                <div class="validator" th:if="${userNonExistent}">
+                    <div>User Doesn't Exists. Please Register!</div>
+                </div>
+                <div class="validator" th:if="${wrongPass}">
+                    <div>Your Password is Wrong!</div>
+                </div>
+                <!-- -->
+
+                <div class="col-12 register-new-userData">
+                    <a href="/register">New User? Register</a>
                 </div>
 
             </div> <!-- end of modal content -->
