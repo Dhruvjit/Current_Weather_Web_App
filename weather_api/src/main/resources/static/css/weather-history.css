@@ -15,20 +15,20 @@ body{
     white-space: nowrap;
 }
 
-.search-wrapper{
-    position: fixed;
-    margin-top: 100px;
-    right: 20%;
-    left: 20%;
-    overflow-x: hidden;
+.flexstyle-mainlayout{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+.search-wrapper{
+    margin-left: 12%;
+    margin-top: 100px;
+    width: 60%;
+}
 
 .card {
-    position: fixed;
-    margin-top: 200px;
-    right: 20%;
-    left: 20%;
+    margin-top: 50px;
     width: 49%;
     min-height:22.5em;
     border-radius: .2em;
@@ -56,7 +56,7 @@ body{
   }
 .temp {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     font-family:Roboto;
     font-weight: 300;
     font-size: 8.5em;
@@ -65,13 +65,14 @@ body{
     border-bottom: 1px solid #d9d9d9 !important;
   }
 
-.CRUDicons{
+/* .CRUDicons{
     display: flex;
     justify-content: space-around;
     margin-right: 30px;
     margin-top: 30px;
     margin-bottom: 20px;
-}
+} */
+
   #headline {
     font-family:Roboto;
     font-weight: 300;
@@ -117,3 +118,20 @@ body{
 .lowLimit {
     color: #8c8c8c;
   }
+
+#history-table{
+    width: 70%;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.crud-form{
+    width: 30%;
+}
+
+.submit-crudform{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: space-around;
+}

@@ -24,57 +24,86 @@
         </form>
     </nav>
 
-    <!-- City search form and button -->
-    <div class="search-wrapper">
-        <form class="navbar-form" action="#" th:action="@{/checkWeather}" method="get">
-            <div class="row">
-                <div class="col-lg-8">
-                    <input type="text" name="city" class="form-control" placeholder="Type the name of the city..">
+    <div class="flexstyle-mainlayout">
+
+        <!-- City search form and button -->
+        <div class="search-wrapper">
+            <form class="navbar-form" action="#" th:action="@{/checkWeather}" method="get">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <input type="text" name="city" class="form-control" placeholder="Type the name of the city..">
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="submit" class="btn btn-primary">Search Weather</button>
+                    </div>
                 </div>
-                <div class="col-sm-4">
-                    <button type="submit" class="btn btn-primary">Search Weather</button>
+            </form>
+        </div>
+
+        <!-- Weather Card that updates dynamically -->
+        <div class="card">
+            <div class="city" th:text="${city}"></div>
+            <br>
+            <div class="temp">
+                <div id="headline" th:text="${headline}">Oops!</div>
+                <div><img src="" id="mainWeatherIcon" width="100" height="100"></div>
+                <div th:text="${currentTemp}">Oops!</div>
+            </div>
+            <div class="forecast">
+                <div class="day"> Headline
+                    <br> <img src="https://cdn0.iconfinder.com/data/icons/weather-circular-2/90/82-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${headline}">oops!</span>
+                </div>
+                <div class="day"> Max and Min Temp
+                    <br> <img src="https://cdn1.iconfinder.com/data/icons/luchesa-2/128/Temperature-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${maxTemp}">oops!</span> <br> <span class="lowLimit" th:text="${minTemp}">oops!</span>
+                </div>
+                <div class="day">Sunrise and Sunset
+                    <br> <img src="https://cdn1.iconfinder.com/data/icons/landscape-v-1/512/Landscape_Circle_1_512px_00007-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${sunrise}">oops!</span> <br> <span class="lowLimit" th:text="${sunset}">oops!</span>
+                </div>
+                <div class="day">Description
+                    <br> <img src="https://cdn4.iconfinder.com/data/icons/weather-flat-icons-1/100/sunny_cloud-512.png" width="50" height="50"> <br> <span class="highLimit" th:text="${description}">oops!</span>
                 </div>
             </div>
-        </form>
+        </div>
+
+        <!--<div class="CRUDicons">-->
+            <!--<div id="crudId">-->
+                <!--<button type="submit" class="btn btn-outline-primary"><i class="fas fa-plus-circle"></i> Add</button>-->
+                <!--<button type="submit" class="btn btn-outline-primary"><i class="fas fa-redo-alt"></i> Update</button>-->
+                <!--<button type="submit" class="btn btn-outline-primary"><i class="fas fa-trash-alt"></i> Delete</button>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!-- history table -->
+        <div class="jumbotron" id="history-table">
+
+            <div class="crud-form-field">
+                <form class="crud-form">
+                    <div class="form-group">
+                        <input type="text" name="city" class="form-control" placeholder="Enter City"/>
+                        <input type="text" name="headline" class="form-control" placeholder="Enter Headline">
+                        <input type="text" name="description" class="form-control" placeholder="Enter Description">
+                        <input type="text" name="icon" class="form-control" placeholder="Enter Icon">
+                        <input type="text" name="currentTemp" class="form-control" placeholder="Enter Current Temp">
+                        <input type="text" name="minTemp" class="form-control" placeholder="Enter Min Temp">
+                        <input type="text" name="maxTemp" class="form-control" placeholder="Enter Max Temp">
+                        <input type="text" name="sunrise" class="form-control" placeholder="Enter Sunrise">
+                        <input type="text" name="sunset" class="form-control" placeholder="Enter Sunset">
+                        <input type="text" name="unit" class="form-control" placeholder="Enter Unit">
+                    </div>
+                    <div class="submit-crudform">
+                        <button type="submit" class="btn btn-outline-primary"><i class="fas fa-plus-circle"></i> Add</button>
+                        <button type="submit" class="btn btn-outline-primary"><i class="far fa-edit"></i> Edit</button>
+                        <button type="submit" class="btn btn-outline-primary"><i class="fas fa-redo-alt"></i> Update</button>
+                        <button type="submit" class="btn btn-outline-primary"><i class="fas fa-trash-alt"></i> Delete</button>
+                    </div>
+                </form>
+            </div>
+            <div class="crud-table">
+
+            </div>
+        </div>
+
     </div>
-
-    <!-- Weather Card that updates dynamically -->
-    <div class="card">
-        <div class="city" th:text="${city}"></div>
-
-        <br>
-
-        <div class="temp">
-            <div id="headline" th:text="${headline}">Oops!</div>
-            <div><img src="" id="mainWeatherIcon" width="100" height="100"></div>
-            <div th:text="${currentTemp}">Oops!</div>
-        </div>
-
-        <div class="forecast">
-            <div class="day"> Headline
-                <br> <img src="https://cdn0.iconfinder.com/data/icons/weather-circular-2/90/82-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${headline}">oops!</span>
-            </div>
-            <div class="day"> Max and Min Temp
-                <br> <img src="https://cdn1.iconfinder.com/data/icons/luchesa-2/128/Temperature-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${maxTemp}">oops!</span> <br> <span class="lowLimit" th:text="${minTemp}">oops!</span>
-            </div>
-            <div class="day">Sunrise and Sunset
-                <br> <img src="https://cdn1.iconfinder.com/data/icons/landscape-v-1/512/Landscape_Circle_1_512px_00007-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${sunrise}">oops!</span> <br> <span class="lowLimit" th:text="${sunset}">oops!</span>
-            </div>
-            <div class="day">Description
-                <br> <img src="https://cdn4.iconfinder.com/data/icons/weather-flat-icons-1/100/sunny_cloud-512.png" width="50" height="50"> <br> <span class="highLimit" th:text="${description}">oops!</span>
-            </div>
-        </div>
-
-        <div class="CRUDicons">
-            <div id="crudId">
-                <button type="submit" class="btn btn-outline-primary"><i class="fas fa-plus-circle"></i> Add</button>
-                <button type="submit" class="btn btn-outline-primary"><i class="fas fa-redo-alt"></i> Update</button>
-                <button type="submit" class="btn btn-outline-primary"><i class="fas fa-trash-alt"></i> Delete</button>
-            </div>
-        </div>
-
-    </div>
-
     <!-- script to form icon url from `icon`-->
     <script th:inline="javascript">
         /*<![CDATA[*/
