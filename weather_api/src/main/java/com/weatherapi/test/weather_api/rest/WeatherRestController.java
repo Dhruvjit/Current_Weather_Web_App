@@ -44,7 +44,7 @@ public class WeatherRestController {
         model.addAttribute("headline", result.getHeadline());
         model.addAttribute("description", result.getDescription());
         model.addAttribute("icon", result.getIcon());
-        model.addAttribute("currentTemp", result.getCurrentTemp());
+        model.addAttribute("currentTemp", result.getCurrentTemp()+"°c");
         model.addAttribute("minTemp", result.getMinTemp());
         model.addAttribute("maxTemp", result.getMaxTemp());
         model.addAttribute("sunrise", result.getSunrise());
