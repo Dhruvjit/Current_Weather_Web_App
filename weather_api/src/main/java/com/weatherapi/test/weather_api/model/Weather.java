@@ -5,18 +5,21 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name="weather")
+@Table(name="weather", uniqueConstraints = @UniqueConstraint(columnNames = {"city"}))
 @Data
 public class Weather {
 
     @Id
-    @Column(name = "city",unique = true)
+    @Column(name = "city")
     private String city;
 
     private String headline;
 
     @Column(name = "descriptions")
     private String description;
+
+    @Transient
+    private String wind;
 
     @Transient
     private String icon;

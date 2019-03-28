@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <title>Weather History</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="css/weather-history.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" th:href="@{css/weather-history.css(r=${T(java.lang.Math).random()})}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -19,7 +18,7 @@
             <img src="images/weather_icon.png" width="40" height="40" class="d-inline-block align-top" alt="weather history">
             Current Weather App
         </a>
-        <form class="navbar-form" action="#" th:action="@{/login}" method="post">
+        <form class="navbar-form" action="#" th:action="@{/logout}" method="get">
             <button class="btn btn-warning my-2 my-sm-0" type="submit">Logout</button>
         </form>
     </nav>
@@ -50,8 +49,8 @@
                 <div th:text="${currentTemp}">Oops!</div>
             </div>
             <div class="forecast">
-                <div class="day"> Headline
-                    <br> <img src="https://cdn0.iconfinder.com/data/icons/weather-circular-2/90/82-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${headline}">oops!</span>
+                <div class="day"> Wind Speed
+                    <br> <img src="https://cdn2.iconfinder.com/data/icons/weather-special/78/12-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${wind}">oops!</span> <br> <span class="lowLimit">km/h</span>
                 </div>
                 <div class="day"> Max and Min Temp
                     <br> <img src="https://cdn1.iconfinder.com/data/icons/luchesa-2/128/Temperature-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${maxTemp}">oops!</span> <br> <span class="lowLimit" th:text="${minTemp}">oops!</span>

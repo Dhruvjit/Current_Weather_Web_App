@@ -24,7 +24,7 @@ public class UserDatabaseConfig {
         try{
             LOGGER.info("created new UserData...");
             System.out.println(userData);
-            session.saveOrUpdate(userData);
+            session.save(userData);
             session.getTransaction().commit();
             LOGGER.info("new UserData created!");
         } finally {
@@ -52,37 +52,6 @@ public class UserDatabaseConfig {
             return userData;
         } catch (NullPointerException e){
             LOGGER.info("No user value returned, username is invalid or is not present");
-            return null;
-        } finally {
-            factory.close();
-        }
-    }
-
-    public UserData updateUserInDatabase(UserData updatedNewUserData, String user){
-        // Create Session Factory
-        SessionFactory factory = new Configuration().
-                configure("hibernate.cfg.xml").
-                addAnnotatedClass(UserData.class).
-                buildSessionFactory();
-        // Create Session
-        Session session = factory.getCurrentSession();
-        // Begin Transaction
-        session.getTransaction().begin();
-        UserData previousUserData;
-        try{
-            LOGGER.info("reading the user data...");
-            previousUserData = (UserData) session.get(UserData.class,user);
-            if(Objects.equals(updatedNewUserData, previousUserData)){
-                LOGGER.info("user already exists and parameters are same");
-            }else{
-                session.clear();
-                session.merge(updatedNewUserData);
-            }
-            session.getTransaction().commit();
-            LOGGER.info("current user parameters Updated!");
-            return updatedNewUserData;
-        } catch (NullPointerException e){
-            LOGGER.info("no user value returned, username is invalid or is not present");
             return null;
         } finally {
             factory.close();

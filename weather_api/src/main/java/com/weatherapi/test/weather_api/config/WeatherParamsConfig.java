@@ -1,7 +1,7 @@
 package com.weatherapi.test.weather_api.config;
 
 import com.weatherapi.test.weather_api.model.Weather;
-import com.weatherapi.test.weather_api.model.WeatherQueryParams;
+import com.weatherapi.test.weather_api.model.WeatherQuery;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 public class WeatherParamsConfig {
 
     @Bean
-    public WeatherQueryParams getWeatherQueryParams(){
-        return new WeatherQueryParams();
+    public WeatherQuery getWeatherQueryParams(){
+        return new WeatherQuery();
     }
 
     @Bean

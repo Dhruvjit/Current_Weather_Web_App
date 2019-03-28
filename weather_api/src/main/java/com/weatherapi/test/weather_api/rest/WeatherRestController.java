@@ -2,7 +2,6 @@ package com.weatherapi.test.weather_api.rest;
 
 import com.weatherapi.test.weather_api.config.WeatherDatabaseConfig;
 import com.weatherapi.test.weather_api.dao.UserDatabase;
-import com.weatherapi.test.weather_api.dao.WeatherDatabase;
 import com.weatherapi.test.weather_api.model.Weather;
 import com.weatherapi.test.weather_api.service.CrudService;
 import com.weatherapi.test.weather_api.service.GetWeatherService;
@@ -25,10 +24,7 @@ public class WeatherRestController {
     @Autowired
     private UserDatabase userDatabase;
     @Autowired
-    private WeatherDatabase weatherDatabase;
-    @Autowired
     private GetWeatherService getWeatherService;
-
     @Autowired
     private CrudService crudService;
 
@@ -48,6 +44,7 @@ public class WeatherRestController {
             model.addAttribute("headline", result.getHeadline());
             model.addAttribute("description", result.getDescription());
             model.addAttribute("icon", result.getIcon());
+            model.addAttribute("wind", result.getWind());
             model.addAttribute("currentTemp", result.getCurrentTemp());
             model.addAttribute("minTemp", result.getMinTemp());
             model.addAttribute("maxTemp", result.getMaxTemp());

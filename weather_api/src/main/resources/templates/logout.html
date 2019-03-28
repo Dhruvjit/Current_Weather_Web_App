@@ -1,10 +1,23 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>User Log Out</title>
+    <title>Logged Out</title>
+    <link rel="stylesheet" type="text/css" media="screen" th:href="@{css/notfound.css(r=${T(java.lang.Math).random()})}"/>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 </head>
-<body>
-
-</body>
-</html>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+                <h1>
+                    You are Successfully Logged Out!
+                </h1>
+                <h3>
+                    To login again click here: <a href="/login">User Signin</a>
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>

@@ -10,15 +10,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.logging.Logger;
 
 @Controller
-public class UserAuthenticationRestController {
+public class UserRestController {
     Logger LOGGER = Logger.getLogger(WeatherDatabaseConfig.class.getName());
 
     @Autowired
     private UserService userService;
-
 
     /*
      * home page that redirects to login
@@ -32,14 +33,12 @@ public class UserAuthenticationRestController {
      * store user registered value in database and redirect to login
      * */
     @PostMapping("/login")
-    public String login(@ModelAttribute(name="userData") UserData userData, Model model) {
-
+    public String login(@ModelAttribute(name="userData") UserData userData,
+                        Model model, HttpServletResponse response) {
         if(userService.userExist(userData.getUsername())){
-            // if credentials are right only then go further
             if(userService.checkPassword(userData)){
-
                 // default weather on login
-                return "redirect:checkWeather?city=Munich";
+                return "redirect:/checkWeather?city=Munich";
             }
             model.addAttribute("wrongPass","true");
             return "login";
@@ -62,8 +61,17 @@ public class UserAuthenticationRestController {
      * store user registered value in database and redirect to login
      * */
     @PostMapping("/register")
-    public String register(@ModelAttribute(name="userData") UserData userData) {
+    public String register(@ModelAttribute(name="userData") UserData userData, HttpServletResponse response) {
         userService.validateUser(userData);
-        return "redirect:login";
+        return "redirect:/login";
+    }
+
+    /*
+     * logout page api
+     * */
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "logout";
     }
 }

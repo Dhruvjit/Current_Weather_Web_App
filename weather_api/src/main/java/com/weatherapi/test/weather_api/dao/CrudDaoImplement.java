@@ -15,14 +15,6 @@ import java.util.List;
 @Repository
 public class CrudDaoImplement implements CrudDao{
 
-    // Create Session Factory
-    SessionFactory factory = new Configuration().
-            configure("hibernate.cfg.xml").
-            addAnnotatedClass(UserData.class).
-            buildSessionFactory();
-    // Create Session
-    Session session = factory.getCurrentSession();
-
     ApplicationContext beanFactory = new AnnotationConfigApplicationContext(WeatherDatabaseConfig.class);
     WeatherDatabaseConfig weatherDatabaseConfig = beanFactory.getBean(WeatherDatabaseConfig.class);
 

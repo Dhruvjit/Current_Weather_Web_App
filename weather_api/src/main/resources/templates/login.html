@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <title>User Login Page</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="css/login-register-style.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" th:href="@{css/login-register-style.css(r=${T(java.lang.Math).random()})}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>

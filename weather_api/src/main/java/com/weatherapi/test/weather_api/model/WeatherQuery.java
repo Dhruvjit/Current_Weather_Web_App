@@ -7,7 +7,7 @@ import lombok.Data;
 * Queries needed to get weather information based on City
 * */
 @Data
-public class WeatherQueryParams {
+public class WeatherQuery {
     String city;
     String appid;
     private JsonNode result;

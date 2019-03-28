@@ -73,9 +73,6 @@ body{
     margin-top:0.70em;
     color:#5b5b5b;
   }
-  #headline:before {
-    content:url('https://i.imgur.com/luN0Jmq.png');
-  }
 
 .variations {
     font-family:Roboto;

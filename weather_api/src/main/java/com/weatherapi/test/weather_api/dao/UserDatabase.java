@@ -16,11 +16,6 @@ public class UserDatabase {
         userDatabaseConfig.CreateUserInDatabase(userData);
     }
 
-    public UserData updateData(String user){
-        UserData newUserData = new UserData();
-        return userDatabaseConfig.updateUserInDatabase(newUserData,user);
-    }
-
     public UserData readData(String user){
         return userDatabaseConfig.readUserFromDatabase(user);
     }
