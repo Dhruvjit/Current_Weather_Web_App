@@ -14,7 +14,7 @@
 </head>
 <body>
     <!-- Image and text -->
-    <nav class="navbar navbar-dark bg-primary">
+    <nav class="navbar navbar-dark fixed-top bg-primary">
         <a class="navbar-brand" href="#">
             <img src="images/weather_icon.png" width="40" height="40" class="d-inline-block align-top" alt="weather history">
             Current Weather App
@@ -63,21 +63,16 @@
                     <br> <img src="https://cdn4.iconfinder.com/data/icons/weather-flat-icons-1/100/sunny_cloud-512.png" width="50" height="50"> <br> <span class="highLimit" th:text="${description}">oops!</span>
                 </div>
             </div>
-        </div>
 
-        <!--<div class="CRUDicons">-->
-            <!--<div id="crudId">-->
-                <!--<button type="submit" class="btn btn-outline-primary"><i class="fas fa-plus-circle"></i> Add</button>-->
-                <!--<button type="submit" class="btn btn-outline-primary"><i class="fas fa-redo-alt"></i> Update</button>-->
-                <!--<button type="submit" class="btn btn-outline-primary"><i class="fas fa-trash-alt"></i> Delete</button>-->
-            <!--</div>-->
-        <!--</div>-->
+           <div class="weatherUpdate">
+               <button type="submit" class="btn btn-outline-primary"><i class="fas fa-redo-alt"></i> Update</button>
+           </div>
+        </div>
 
         <!-- history table -->
         <div class="jumbotron" id="history-table">
-
             <div class="crud-form-field">
-                <form class="crud-form">
+                <form class="crud-form"  th:action="@{/weatherAction}" method="post">
                     <div class="form-group">
                         <input type="text" name="city" class="form-control" placeholder="Enter City"/>
                         <input type="text" name="headline" class="form-control" placeholder="Enter Headline">
@@ -91,19 +86,38 @@
                         <input type="text" name="unit" class="form-control" placeholder="Enter Unit">
                     </div>
                     <div class="submit-crudform">
-                        <button type="submit" class="btn btn-outline-primary"><i class="fas fa-plus-circle"></i> Add</button>
-                        <button type="submit" class="btn btn-outline-primary"><i class="far fa-edit"></i> Edit</button>
-                        <button type="submit" class="btn btn-outline-primary"><i class="fas fa-redo-alt"></i> Update</button>
-                        <button type="submit" class="btn btn-outline-primary"><i class="fas fa-trash-alt"></i> Delete</button>
+                        <button type="submit" name="action" value ="add" class="btn btn-outline-primary"><i class="fas fa-plus-circle"></i> Add</button>
+                        <button type="submit" name="action" value ="edit" class="btn btn-outline-primary"><i class="far fa-edit"></i> Edit</button>
+                        <button type="submit" name="action" value ="delete" class="btn btn-outline-primary"><i class="fas fa-trash-alt"></i> Delete</button>
                     </div>
                 </form>
             </div>
-            <div class="crud-table">
-
+            <div class="crud-table-field">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">city</th>
+                        <th scope="col">headline</th>
+                        <th scope="col">description</th>
+                        <th scope="col">currentTemp</th>
+                        <th scope="col">minTemp</th>
+                        <th scope="col">maxTemp</th>
+                        <th scope="col">sunrise</th>
+                        <th scope="col">sunset</th>
+                        <th scope="col">description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <!-- <tr th:each="instance : ${weatherMap.get('weatherList')}">
+                            <td th:text="${instance}">keyvalue</td>
+                        </tr> -->
+                    </tbody>
+                </table>
             </div>
         </div>
-
     </div>
+
     <!-- script to form icon url from `icon`-->
     <script th:inline="javascript">
         /*<![CDATA[*/

@@ -61,24 +61,24 @@ body{
     font-weight: 300;
     font-size: 8.5em;
     margin-top:-.75em;
-    color:#007bff;
+    color:#5b5b5b;
     border-bottom: 1px solid #d9d9d9 !important;
   }
 
-/* .CRUDicons{
+.weatherUpdate{
     display: flex;
     justify-content: space-around;
     margin-right: 30px;
     margin-top: 30px;
     margin-bottom: 20px;
-} */
+}
 
   #headline {
     font-family:Roboto;
     font-weight: 300;
     font-size: .60em;
     margin-top:0.70em;
-    color:#007bff;
+    color:#5b5b5b;
   }
   #headline:before {
     content:url('https://i.imgur.com/luN0Jmq.png');
@@ -120,18 +120,24 @@ body{
   }
 
 #history-table{
+    display: flex;
+    justify-content: flex-start;
     width: 70%;
     margin-top: 50px;
-    text-align: center;
 }
 
-.crud-form{
+.crud-form-field{
     width: 30%;
+    border: 1px solid #d9d9d9 !important;
+}
+
+.crud-table-field{
+    width: 70%;
 }
 
 .submit-crudform{
     margin-top: 20px;
+    margin-bottom: 20px;
     display: flex;
-    flex-direction: row;
-    align-items: space-around;
+    justify-content: space-around;
 }
