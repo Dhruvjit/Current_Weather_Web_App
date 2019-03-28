@@ -32,26 +32,17 @@ public class CrudDaoImplement implements CrudDao{
     }
 
     @Override
-    public void edit(Weather weather){
-        session.getTransaction().begin();
-        session.update(weather);
+    public void edit(Weather weather,String city){
+        weatherDatabaseConfig.updateCityFromDatabase(weather,city);
     }
 
     @Override
-    public void delete(String city){
-        session.getTransaction().begin();
-        session.delete(city);
-    }
-
-    @Override
-    public Weather getWeather(String city){
-        session.getTransaction().begin();
-        return (Weather) session.get(Weather.class,"city");
+    public void delete(Weather weather){
+        weatherDatabaseConfig.deleteCityFromDatabase(weather);
     }
 
     @Override
     public List getAllWeatherList(){
-        session.getTransaction().begin();
-        return session.createQuery("from Weather").list();
+        return weatherDatabaseConfig.getAllCitiesFromDatabase();
     }
 }

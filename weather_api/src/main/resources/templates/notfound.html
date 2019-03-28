@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <title>Page Not Found</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/notfound.css"/>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+                <h1>
+                    Oops! Weather not so good!</h1>
+                <h2>
+                    404 City Not Found</h2>
+                <div class="error-details">
+                    Sorry, an error has occured, Requested city not found!
+                    Press back button and re-type correct name
+                </div>
+                <div class="error-actions">
+                    <a href="/checkWeather?city=Munich" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+                        Take Me Home </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -18,11 +18,15 @@ public class Weather {
     @Column(name = "descriptions")
     private String description;
 
+    @Transient
     private String icon;
+
     private String currentTemp;
     private String minTemp;
     private String maxTemp;
     private String sunrise;
     private String sunset;
+
+    @Transient
     private String unit;
 }

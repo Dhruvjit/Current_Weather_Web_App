@@ -28,7 +28,7 @@
 
         <!-- City search form and button -->
         <div class="search-wrapper">
-            <form class="navbar-form" action="#" th:action="@{/checkWeather}" method="get">
+            <form class="navbar-form" th:action="@{/checkWeather}" method="get">
                 <div class="row">
                     <div class="col-lg-8">
                         <input type="text" name="city" class="form-control" placeholder="Type the name of the city..">
@@ -63,32 +63,26 @@
                     <br> <img src="https://cdn4.iconfinder.com/data/icons/weather-flat-icons-1/100/sunny_cloud-512.png" width="50" height="50"> <br> <span class="highLimit" th:text="${description}">oops!</span>
                 </div>
             </div>
-
-           <div class="weatherUpdate">
-               <button type="submit" class="btn btn-outline-primary"><i class="fas fa-redo-alt"></i> Update</button>
-           </div>
         </div>
 
         <!-- history table -->
         <div class="jumbotron" id="history-table">
             <div class="crud-form-field">
-                <form class="crud-form"  th:action="@{/weatherAction}" method="post">
+                <form class="crud-form"  th:action="@{/checkWeather}" method="post">
                     <div class="form-group">
-                        <input type="text" name="city" class="form-control" placeholder="Enter City"/>
-                        <input type="text" name="headline" class="form-control" placeholder="Enter Headline">
-                        <input type="text" name="description" class="form-control" placeholder="Enter Description">
-                        <input type="text" name="icon" class="form-control" placeholder="Enter Icon">
-                        <input type="text" name="currentTemp" class="form-control" placeholder="Enter Current Temp">
-                        <input type="text" name="minTemp" class="form-control" placeholder="Enter Min Temp">
-                        <input type="text" name="maxTemp" class="form-control" placeholder="Enter Max Temp">
-                        <input type="text" name="sunrise" class="form-control" placeholder="Enter Sunrise">
-                        <input type="text" name="sunset" class="form-control" placeholder="Enter Sunset">
-                        <input type="text" name="unit" class="form-control" placeholder="Enter Unit">
+                        <input type="text" name="city" class="form-control" th:value="${city}" placeholder="Enter City"/>
+                        <input type="text" name="headline" class="form-control" th:value="${headline}" placeholder="Enter Headline">
+                        <input type="text" name="description" class="form-control" th:value="${description}" placeholder="Enter Description">
+                        <input type="text" name="currentTemp" class="form-control" th:value="${currentTemp}" placeholder="Enter Current Temp">
+                        <input type="text" name="minTemp" class="form-control" th:value="${minTemp}" placeholder="Enter Min Temp">
+                        <input type="text" name="maxTemp" class="form-control" th:value="${maxTemp}" placeholder="Enter Max Temp">
+                        <input type="text" name="sunrise" class="form-control" th:value="${sunrise}" placeholder="Enter Sunrise">
+                        <input type="text" name="sunset" class="form-control" th:value="${sunset}" placeholder="Enter Sunset">
                     </div>
                     <div class="submit-crudform">
-                        <button type="submit" name="action" value ="add" class="btn btn-outline-primary"><i class="fas fa-plus-circle"></i> Add</button>
-                        <button type="submit" name="action" value ="edit" class="btn btn-outline-primary"><i class="far fa-edit"></i> Edit</button>
-                        <button type="submit" name="action" value ="delete" class="btn btn-outline-primary"><i class="fas fa-trash-alt"></i> Delete</button>
+                        <button type="submit" name="action" value ="add" class="btn btn-outline-success"><i class="fas fa-plus-circle"></i> Add</button>
+                        <button type="submit" name="action" value ="edit" class="btn btn-outline-success"><i class="far fa-edit"></i> Edit</button>
+                        <button type="submit" name="action" value ="delete" class="btn btn-outline-success"><i class="fas fa-trash-alt"></i> Delete</button>
                     </div>
                 </form>
             </div>
@@ -96,7 +90,6 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">city</th>
                         <th scope="col">headline</th>
                         <th scope="col">description</th>
@@ -105,13 +98,19 @@
                         <th scope="col">maxTemp</th>
                         <th scope="col">sunrise</th>
                         <th scope="col">sunset</th>
-                        <th scope="col">description</th>
                     </tr>
                     </thead>
                     <tbody>
-                        <!-- <tr th:each="instance : ${weatherMap.get('weatherList')}">
-                            <td th:text="${instance}">keyvalue</td>
-                        </tr> -->
+                        <tr th:each="instance:${weatherMap.get('weatherList')}">
+                            <td th:text="${instance.city}"/>
+                            <td th:text="${instance.headline}"/>
+                            <td th:text="${instance.description}"/>
+                            <td th:text="${instance.currentTemp}"/>
+                            <td th:text="${instance.minTemp}"/>
+                            <td th:text="${instance.maxTemp}"/>
+                            <td th:text="${instance.sunrise}"/>
+                            <td th:text="${instance.sunset}"/>
+                        </tr>
                     </tbody>
                 </table>
             </div>

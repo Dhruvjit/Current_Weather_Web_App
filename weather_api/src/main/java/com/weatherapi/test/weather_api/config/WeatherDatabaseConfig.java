@@ -4,6 +4,8 @@ import com.weatherapi.test.weather_api.model.Weather;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
 
@@ -32,7 +34,7 @@ public class WeatherDatabaseConfig {
         }
     }
 
-    public Weather readCityFromDatabase(String city){
+    public List<Weather> getAllCitiesFromDatabase(){
         // Create Session Factory
         SessionFactory factory = new Configuration().
                 configure("hibernate.cfg.xml").
@@ -45,13 +47,10 @@ public class WeatherDatabaseConfig {
         Weather getWeatherWithCityName;
         try{
             LOGGER.info("reading the weather data...");
-            getWeatherWithCityName = (Weather)session.get(Weather.class,city);
-            System.out.println(getWeatherWithCityName);
-            session.getTransaction().commit();
-            LOGGER.info("reading weather object done!");
-            return getWeatherWithCityName;
+            List<Weather> allWeatherList = session.createQuery("from Weather").list();
+            return allWeatherList;
         } catch (NullPointerException e){
-            LOGGER.info("No Weather value returned, City name is invalid or is not present");
+            LOGGER.info("No Weather value returned, database is empty");
             return null;
         } finally {
             factory.close();
@@ -95,7 +94,6 @@ public class WeatherDatabaseConfig {
         session.getTransaction().begin();
         Weather getPreviousWeatherWithCityName;
         try{
-
             LOGGER.info("reading the weather data...");
             getPreviousWeatherWithCityName = (Weather)session.get(Weather.class,city);
             if(Objects.equals(updatedNewWeather,getPreviousWeatherWithCityName)){

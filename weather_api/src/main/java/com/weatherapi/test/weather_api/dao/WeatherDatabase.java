@@ -32,7 +32,4 @@ public class WeatherDatabase {
         weatherDatabaseConfig.deleteCityFromDatabase(weather);
     }
 
-    public void readData(String city){
-        weatherDatabaseConfig.readCityFromDatabase(city);
-    }
 }

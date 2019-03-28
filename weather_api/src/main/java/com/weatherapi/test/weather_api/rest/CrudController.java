@@ -22,36 +22,17 @@ public class CrudController {
     @Autowired
     private CrudService crudService;
 
-    @RequestMapping("/index")
-    public String crudForm(Map<String,Object> map){
-        Weather weather = new Weather();
-        map.put("weather",weather);
-        map.put("weatherList",crudService.getAllWeatherList());
-        return "weather-history";
-    }
-
-    @PostMapping("/weatherAction")
+    @PostMapping("/checkWeather")
     public String doActions(@ModelAttribute Weather weather,
                             BindingResult result, @RequestParam String action,
                             Map<String,Object> map, Model model){
-        Weather weatherResult = new Weather();
         if(action.equals("add")){
             crudService.add(weather);
-            weatherResult = weather;
         }else if (action.equals("edit")){
-            crudService.edit(weather);
-            weatherResult = weather;
+            crudService.edit(weather,weather.getCity());
         }else if (action.equals("delete")){
-            crudService.delete(weather.getCity());
-            weatherResult = new Weather();
-        }else if (action.equals("search")){
-            Weather foundWeatherForCity = crudService.getWeather(weather.getCity());
-            weatherResult = foundWeatherForCity!=null ? foundWeatherForCity : new Weather();
+            crudService.delete(weather);
         }
-        map.put("weather",weatherResult);
-        map.put("weatherList",crudService.getAllWeatherList());
-        model.addAttribute("weatherMap",map);
-        return "weather-history";
+        return "redirect:checkWeather?city="+weather.getCity();
     }
-
 }

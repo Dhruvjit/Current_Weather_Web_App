@@ -37,7 +37,9 @@ public class UserAuthenticationRestController {
         if(userService.userExist(userData.getUsername())){
             // if credentials are right only then go further
             if(userService.checkPassword(userData)){
-                return "redirect:weather-history";
+
+                // default weather on login
+                return "redirect:checkWeather?city=Munich";
             }
             model.addAttribute("wrongPass","true");
             return "login";
@@ -63,14 +65,5 @@ public class UserAuthenticationRestController {
     public String register(@ModelAttribute(name="userData") UserData userData) {
         userService.validateUser(userData);
         return "redirect:login";
-    }
-
-    /*
-     * after correct login page will redirect to weather-history
-     * */
-    @GetMapping("/weather-history")
-    public String weatherHistory() {
-        LOGGER.info("user successfully logged in weather-history page");
-        return "weather-history";
     }
 }

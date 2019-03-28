@@ -20,18 +20,13 @@ public class CrudServiceImplement implements CrudService {
     }
 
     @Transactional
-    public void edit(Weather weather){
-        crudDao.edit(weather);
+    public void edit(Weather weather, String city){
+        crudDao.edit(weather,city);
     }
 
     @Transactional
-    public void delete(String city){
-        crudDao.delete(city);
-    }
-
-    @Transactional
-    public Weather getWeather(String city){
-        return crudDao.getWeather(city);
+    public void delete(Weather weather){
+        crudDao.delete(weather);
     }
 
     @Transactional
