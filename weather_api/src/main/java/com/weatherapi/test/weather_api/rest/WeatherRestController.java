@@ -22,8 +22,6 @@ public class WeatherRestController {
     private final static Logger LOGGER = Logger.getLogger(WeatherDatabaseConfig.class.getName());
 
     @Autowired
-    private UserDatabase userDatabase;
-    @Autowired
     private GetWeatherService getWeatherService;
     @Autowired
     private CrudService crudService;

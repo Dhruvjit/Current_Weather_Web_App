@@ -1,12 +1,7 @@
 package com.weatherapi.test.weather_api.dao;
 
 import com.weatherapi.test.weather_api.config.WeatherDatabaseConfig;
-import com.weatherapi.test.weather_api.model.UserData;
 import com.weatherapi.test.weather_api.model.Weather;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Repository;
@@ -25,7 +20,12 @@ public class CrudDaoImplement implements CrudDao{
 
     @Override
     public void edit(Weather weather,String city){
-        weatherDatabaseConfig.updateCityFromDatabase(weather,city);
+        weatherDatabaseConfig.editCityFromDatabase(weather,city);
+    }
+
+    @Override
+    public void update(Weather weather){
+        weatherDatabaseConfig.updateCityFromDatabase(weather);
     }
 
     @Override

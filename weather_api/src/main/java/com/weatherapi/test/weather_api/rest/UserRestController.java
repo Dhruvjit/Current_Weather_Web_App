@@ -34,14 +34,10 @@ public class UserRestController {
      * */
     @PostMapping("/login")
     public String login(@ModelAttribute(name="userData") UserData userData,
-                        Model model, HttpServletResponse response) {
-        if(userService.userExist(userData.getUsername())){
-            if(userService.checkPassword(userData)){
-                // default weather on login
-                return "redirect:/checkWeather?city=Munich";
-            }
-            model.addAttribute("wrongPass","true");
-            return "login";
+                        Model model) {
+        if(userService.userExist(userData)){
+            // default weather on login
+            return "redirect:/checkWeather?city=Munich";
         }else{
             LOGGER.info("user does not exists, register yourself!");
             model.addAttribute("userNonExistent","true");
@@ -61,8 +57,8 @@ public class UserRestController {
      * store user registered value in database and redirect to login
      * */
     @PostMapping("/register")
-    public String register(@ModelAttribute(name="userData") UserData userData, HttpServletResponse response) {
-        userService.validateUser(userData);
+    public String register(@ModelAttribute(name="userData") UserData userData) {
+        userService.save(userData);
         return "redirect:/login";
     }
 

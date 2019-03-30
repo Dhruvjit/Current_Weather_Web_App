@@ -6,10 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 
 @Service
 public class CrudServiceImplement implements CrudService {
+
+    @Autowired
+    private GetWeatherService getWeatherService;
 
     @Autowired
     private CrudDao crudDao;
@@ -22,6 +26,12 @@ public class CrudServiceImplement implements CrudService {
     @Transactional
     public void edit(Weather weather, String city){
         crudDao.edit(weather,city);
+    }
+
+    @Transactional
+    public void update(Weather weather) throws IOException {
+        Weather latestWeather = getWeatherService.getNewWeatherObject(weather.getCity());
+        crudDao.update(latestWeather);
     }
 
     @Transactional

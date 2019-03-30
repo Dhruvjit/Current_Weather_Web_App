@@ -6,6 +6,7 @@ import com.weatherapi.test.weather_api.model.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @Service
@@ -15,42 +16,28 @@ public class UserService {
     @Autowired
     UserDatabase userDatabase;
 
-    public void validateUser(UserData userData){
+    public void save(UserData userData){
         // check if the user already exists
-        Object data = userDatabase.readData(userData.getUsername());
-        if(data==null || !checkDateOfBirth(userData)){
-            userDatabase.saveData(userData);
-        }else {
-            LOGGER.info("user already exist. no changes made!");
-        }
+        userDatabase.saveData(userData);
     }
 
-    public boolean userExist(String username){
-        Object data = userDatabase.readData(username);
-        if(data==null){
-            return false;
-        }
-        return true;
-    }
-
-    public boolean checkPassword(UserData userData){
-        Object data = userDatabase.readData(userData.getUsername());
-        if(data!=null){
-            String dbPass = ((UserData) data).getPassword();
-            if(userData.getPassword().equals(dbPass)){
+    public boolean userExist(UserData userData){
+        List<UserData> data = userDatabase.readData(userData);
+        // if size is 0 means no user present
+        if(data.size()!=0){
+            if(data.get(0).getName().equals(userData.getName())){
+                return true;
+            }
+            if(isPasswordValid(data,userData)){
                 return true;
             }
         }
         return false;
     }
 
-    public boolean checkDateOfBirth(UserData userData){
-        Object data = userDatabase.readData(userData.getDateOfBirth());
-        if(data!=null){
-            String dbDob = ((UserData) data).getDateOfBirth();
-            if(userData.getPassword().equals(dbDob)){
-                return true;
-            }
+    public boolean isPasswordValid(List<UserData> data,UserData userData){
+        if(data.get(0).getPassword().equals(userData.getPassword())){
+            return true;
         }
         return false;
     }

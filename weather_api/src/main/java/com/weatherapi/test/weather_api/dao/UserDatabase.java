@@ -6,6 +6,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class UserDatabase {
 
@@ -16,7 +18,7 @@ public class UserDatabase {
         userDatabaseConfig.CreateUserInDatabase(userData);
     }
 
-    public UserData readData(String user){
-        return userDatabaseConfig.readUserFromDatabase(user);
+    public List<UserData> readData(UserData userData){
+        return userDatabaseConfig.readUserFromDatabase(userData);
     }
 }

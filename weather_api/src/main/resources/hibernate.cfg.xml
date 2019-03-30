@@ -7,6 +7,7 @@
     <session-factory>
         <!-- JDBC Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <!-- connect to JDBC and auto generate database `weather_map` if it doesnt exist (check url for ampersand) -->
         <property name="connection.url">jdbc:mysql://127.0.0.1:3306/weather_map?serverTimezone=UTC&amp;createDatabaseIfNotExist=true</property>
         <property name="connection.username">hbstudent</property>
         <property name="connection.password">hbstudent</property>
@@ -18,6 +19,7 @@
         <property name="show_sql">true</property>
 		<!-- Set the current session context -->
 		<property name="current_session_context_class">thread</property>
+        <!-- Auto generate weather and user tables if they dont exist -->
         <property name="hibernate.hbm2ddl.auto">update</property>
     </session-factory>
 

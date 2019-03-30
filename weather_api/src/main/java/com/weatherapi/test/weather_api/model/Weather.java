@@ -10,6 +10,10 @@ import javax.persistence.*;
 public class Weather {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
+
     @Column(name = "city")
     private String city;
 

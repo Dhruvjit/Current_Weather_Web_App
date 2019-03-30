@@ -7,6 +7,7 @@ import java.util.List;
 public interface CrudDao {
     public void add(Weather weather);
     public void edit(Weather weather, String city);
+    public void update(Weather weather);
     public void delete(Weather weather);
     public List getAllWeatherList();
 }

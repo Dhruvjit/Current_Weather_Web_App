@@ -1,12 +1,11 @@
 package com.weatherapi.test.weather_api.config;
 
 import com.weatherapi.test.weather_api.model.Weather;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
 import java.util.List;
-import java.util.Objects;
 import java.util.logging.Logger;
 
 @org.springframework.context.annotation.Configuration
@@ -26,7 +25,7 @@ public class WeatherDatabaseConfig {
         try{
             LOGGER.info("saving the weather data...");
             System.out.println(weather);
-            session.saveOrUpdate(weather);
+            session.save(weather);
             session.getTransaction().commit();
             LOGGER.info("saving weather object done!");
         } finally {
@@ -57,7 +56,7 @@ public class WeatherDatabaseConfig {
         }
     }
 
-    public String deleteCityFromDatabase(Weather deleteCityFromDb){
+    public Boolean deleteCityFromDatabase(Weather deleteCityFromDb){
         // Create Session Factory
         SessionFactory factory = new Configuration().
                 configure("hibernate.cfg.xml").
@@ -69,12 +68,22 @@ public class WeatherDatabaseConfig {
         session.getTransaction().begin();
         try{
             LOGGER.info("Deleting the weather data...");
-            session.delete(deleteCityFromDb);
-            session.getTransaction().commit();
-            LOGGER.info("Deleting weather object! done!");
-            return "City Deletion Successful";
+            Query query = session.createQuery("from Weather wt where wt.city = :city");
+            query.setParameter("city",deleteCityFromDb.getCity());
+            List<Weather> retrievedWeatherData = query.list();
+            if(retrievedWeatherData.size()!=0){
+                Weather wt = (Weather) session.get(Weather.class,retrievedWeatherData.get(0).getId());
+                session.delete(wt);
+                session.getTransaction().commit();
+                LOGGER.info("Deleting weather object! done!");
+                return true;
+            }else{
+                LOGGER.info("Deletion Failed! Database not Found! Please check/Input city name correctly");
+                return false;
+            }
+
         }catch (NullPointerException e) {
-            LOGGER.info("Weather value Deletion failed! Please check/Input city name correctly");
+            LOGGER.info("Weather value returned null");
             return null;
         }
         finally {
@@ -82,7 +91,7 @@ public class WeatherDatabaseConfig {
         }
     }
 
-    public Weather updateCityFromDatabase(Weather updatedNewWeather,String city){
+    public boolean editCityFromDatabase(Weather weatherToUpdate, String city){
         // Create Session Factory
         SessionFactory factory = new Configuration().
                 configure("hibernate.cfg.xml").
@@ -92,22 +101,71 @@ public class WeatherDatabaseConfig {
         Session session = factory.getCurrentSession();
         // Begin Transaction
         session.getTransaction().begin();
-        Weather getPreviousWeatherWithCityName;
         try{
             LOGGER.info("reading the weather data...");
-            getPreviousWeatherWithCityName = (Weather)session.get(Weather.class,city);
-            if(Objects.equals(updatedNewWeather,getPreviousWeatherWithCityName)){
-                LOGGER.info("City already exists and parameters are same");
-            }else{
-                session.clear();
-                session.merge(updatedNewWeather);
+            Query query = session.createQuery("from Weather wt where wt.city = :city");
+            query.setParameter("city",weatherToUpdate.getCity());
+            List<Weather> retrievedWeatherData = query.list();
+            if(retrievedWeatherData.size()!=0){
+                    Weather wt = (Weather) session.get(Weather.class,retrievedWeatherData.get(0).getId());
+                    wt.setHeadline(weatherToUpdate.getHeadline());
+                    wt.setDescription(weatherToUpdate.getDescription());
+                    wt.setCurrentTemp(weatherToUpdate.getCurrentTemp());
+                    wt.setMinTemp(weatherToUpdate.getMinTemp());
+                    wt.setMaxTemp(weatherToUpdate.getMaxTemp());
+                    wt.setSunrise(weatherToUpdate.getSunrise());
+                    wt.setSunset(weatherToUpdate.getSunset());
+                    session.saveOrUpdate(wt);
+                    session.getTransaction().commit();
+                    LOGGER.info("City parameters Updated!");
+                    return true;
+                }else{
+                    LOGGER.info("No Weather value returned, City name is invalid or is not present");
+                    return false;
             }
-            session.getTransaction().commit();
-            LOGGER.info("City parameters Updated!");
-            return updatedNewWeather;
+            } catch (NullPointerException e){
+                LOGGER.info("Weather value returned null");
+                return false;
+            } finally {
+            factory.close();
+        }
+    }
+
+    public boolean updateCityFromDatabase(Weather latestWeather){
+        // Create Session Factory
+        SessionFactory factory = new Configuration().
+                configure("hibernate.cfg.xml").
+                addAnnotatedClass(Weather.class).
+                buildSessionFactory();
+        // Create Session
+        Session session = factory.getCurrentSession();
+        // Begin Transaction
+        session.getTransaction().begin();
+        try{
+            LOGGER.info("updating the weather data...");
+            Query query = session.createQuery("from Weather wt where wt.city = :city");
+            query.setParameter("city",latestWeather.getCity());
+            List<Weather> retrievedWeatherData = query.list();
+            if(retrievedWeatherData.size()!=0){
+                Weather recent = (Weather) session.get(Weather.class,retrievedWeatherData.get(0).getId());
+                recent.setHeadline(latestWeather.getHeadline());
+                recent.setDescription(latestWeather.getDescription());
+                recent.setCurrentTemp(latestWeather.getCurrentTemp());
+                recent.setMinTemp(latestWeather.getMinTemp());
+                recent.setMaxTemp(latestWeather.getMaxTemp());
+                recent.setSunrise(latestWeather.getSunrise());
+                recent.setSunset(latestWeather.getSunset());
+                session.merge(recent);
+                session.getTransaction().commit();
+                LOGGER.info("City parameters Updated!");
+                return true;
+            }else{
+                LOGGER.info("No Weather value returned, City name is invalid or is not present");
+                return false;
+            }
         } catch (NullPointerException e){
-            LOGGER.info("No Weather value returned, City name is invalid or is not present");
-            return null;
+            LOGGER.info("Weather value returned null");
+            return false;
         } finally {
             factory.close();
         }
