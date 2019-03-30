@@ -15,7 +15,7 @@ public class CrudDaoImplement implements CrudDao{
 
     @Override
     public void add(Weather weather){
-        weatherDatabaseConfig.CreateCityInDatabase(weather);
+        weatherDatabaseConfig.AddCityInDatabase(weather);
     }
 
     @Override

@@ -5,6 +5,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.springframework.dao.DuplicateKeyException;
+
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -12,7 +14,7 @@ import java.util.logging.Logger;
 public class WeatherDatabaseConfig {
     private final static Logger LOGGER = Logger.getLogger(WeatherDatabaseConfig.class.getName());
 
-    public void CreateCityInDatabase(Weather weather){
+    public void AddCityInDatabase(Weather weather){
         // Create Session Factory
         SessionFactory factory = new Configuration().
                 configure("hibernate.cfg.xml").
@@ -28,7 +30,9 @@ public class WeatherDatabaseConfig {
             session.save(weather);
             session.getTransaction().commit();
             LOGGER.info("saving weather object done!");
-        } finally {
+        } catch (DuplicateKeyException e){
+            LOGGER.info("weather for the desired city already exists in the database! please delete or update it first");
+        }finally {
             factory.close();
         }
     }
@@ -43,7 +47,6 @@ public class WeatherDatabaseConfig {
         Session session = factory.getCurrentSession();
         // Begin Transaction
         session.getTransaction().begin();
-        Weather getWeatherWithCityName;
         try{
             LOGGER.info("reading the weather data...");
             List<Weather> allWeatherList = session.createQuery("from Weather").list();
@@ -107,15 +110,14 @@ public class WeatherDatabaseConfig {
             query.setParameter("city",weatherToUpdate.getCity());
             List<Weather> retrievedWeatherData = query.list();
             if(retrievedWeatherData.size()!=0){
-                    Weather wt = (Weather) session.get(Weather.class,retrievedWeatherData.get(0).getId());
-                    wt.setHeadline(weatherToUpdate.getHeadline());
-                    wt.setDescription(weatherToUpdate.getDescription());
-                    wt.setCurrentTemp(weatherToUpdate.getCurrentTemp());
-                    wt.setMinTemp(weatherToUpdate.getMinTemp());
-                    wt.setMaxTemp(weatherToUpdate.getMaxTemp());
-                    wt.setSunrise(weatherToUpdate.getSunrise());
-                    wt.setSunset(weatherToUpdate.getSunset());
-                    session.saveOrUpdate(wt);
+                    retrievedWeatherData.get(0).setHeadline(weatherToUpdate.getHeadline());
+                    retrievedWeatherData.get(0).setDescription(weatherToUpdate.getDescription());
+                    retrievedWeatherData.get(0).setCurrentTemp(weatherToUpdate.getCurrentTemp());
+                    retrievedWeatherData.get(0).setMinTemp(weatherToUpdate.getMinTemp());
+                    retrievedWeatherData.get(0).setMaxTemp(weatherToUpdate.getMaxTemp());
+                    retrievedWeatherData.get(0).setSunrise(weatherToUpdate.getSunrise());
+                    retrievedWeatherData.get(0).setSunset(weatherToUpdate.getSunset());
+                    session.saveOrUpdate(retrievedWeatherData.get(0));
                     session.getTransaction().commit();
                     LOGGER.info("City parameters Updated!");
                     return true;
@@ -147,15 +149,14 @@ public class WeatherDatabaseConfig {
             query.setParameter("city",latestWeather.getCity());
             List<Weather> retrievedWeatherData = query.list();
             if(retrievedWeatherData.size()!=0){
-                Weather recent = (Weather) session.get(Weather.class,retrievedWeatherData.get(0).getId());
-                recent.setHeadline(latestWeather.getHeadline());
-                recent.setDescription(latestWeather.getDescription());
-                recent.setCurrentTemp(latestWeather.getCurrentTemp());
-                recent.setMinTemp(latestWeather.getMinTemp());
-                recent.setMaxTemp(latestWeather.getMaxTemp());
-                recent.setSunrise(latestWeather.getSunrise());
-                recent.setSunset(latestWeather.getSunset());
-                session.merge(recent);
+                retrievedWeatherData.get(0).setHeadline(latestWeather.getHeadline());
+                retrievedWeatherData.get(0).setDescription(latestWeather.getDescription());
+                retrievedWeatherData.get(0).setCurrentTemp(latestWeather.getCurrentTemp());
+                retrievedWeatherData.get(0).setMinTemp(latestWeather.getMinTemp());
+                retrievedWeatherData.get(0).setMaxTemp(latestWeather.getMaxTemp());
+                retrievedWeatherData.get(0).setSunrise(latestWeather.getSunrise());
+                retrievedWeatherData.get(0).setSunset(latestWeather.getSunset());
+                session.merge(retrievedWeatherData.get(0));
                 session.getTransaction().commit();
                 LOGGER.info("City parameters Updated!");
                 return true;

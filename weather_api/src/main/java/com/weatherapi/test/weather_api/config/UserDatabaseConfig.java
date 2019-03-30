@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 public class UserDatabaseConfig {
     private final static Logger LOGGER = Logger.getLogger(WeatherDatabaseConfig.class.getName());
 
-    public void CreateUserInDatabase(UserData userData){
+    public void addUserInDatabase(UserData userData){
         // Create Session Factory
         SessionFactory factory = new Configuration().
                 configure("hibernate.cfg.xml").

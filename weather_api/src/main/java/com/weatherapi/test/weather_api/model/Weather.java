@@ -1,8 +1,10 @@
 package com.weatherapi.test.weather_api.model;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="weather", uniqueConstraints = @UniqueConstraint(columnNames = {"city"}))
@@ -28,7 +30,8 @@ public class Weather {
     @Transient
     private String icon;
 
-    private String currentTemp;
+    @Range(min=0, max=100, message = "length for current temperature should be less than 100")
+    private float currentTemp;
     private String minTemp;
     private String maxTemp;
     private String sunrise;

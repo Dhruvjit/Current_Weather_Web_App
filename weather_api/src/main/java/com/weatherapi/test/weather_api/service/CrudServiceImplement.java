@@ -18,6 +18,9 @@ public class CrudServiceImplement implements CrudService {
     @Autowired
     private CrudDao crudDao;
 
+    @Autowired
+    private ConvertMillisecondsService convertMillisecondsService;
+
     @Transactional
     public void add(Weather weather){
         crudDao.add(weather);
@@ -31,6 +34,10 @@ public class CrudServiceImplement implements CrudService {
     @Transactional
     public void update(Weather weather) throws IOException {
         Weather latestWeather = getWeatherService.getNewWeatherObject(weather.getCity());
+        String timeConvertedSunrise = convertMillisecondsService.convertToTime(Long.parseLong(latestWeather.getSunrise()));
+        String timeConvertedSunset = convertMillisecondsService.convertToTime(Long.parseLong(latestWeather.getSunset()));
+        latestWeather.setSunrise(timeConvertedSunrise);
+        latestWeather.setSunset(timeConvertedSunset);
         crudDao.update(latestWeather);
     }
 

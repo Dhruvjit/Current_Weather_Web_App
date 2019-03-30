@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
-    <title>Weather History</title>
+    <title>Current Weather</title>
     <link rel="stylesheet" type="text/css" media="screen" th:href="@{css/weather-history.css(r=${T(java.lang.Math).random()})}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -25,41 +25,41 @@
 
     <div class="flexstyle-mainlayout">
 
-        <!-- City search form and button -->
-        <div class="search-wrapper">
-            <form class="navbar-form" th:action="@{/checkWeather}" method="get">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <input type="text" name="city" class="form-control" placeholder="Type the name of the city..">
-                    </div>
-                    <div class="col-sm-4">
-                        <button type="submit" class="btn btn-primary">Search Weather</button>
-                    </div>
-                </div>
-            </form>
+<!-- City search form and button -->
+<div class="search-wrapper">
+<form class="navbar-form" th:action="@{/checkWeather}" method="get">
+    <div class="row">
+        <div class="col-lg-8">
+            <input type="text" name="city" class="form-control" placeholder="Type the name of the city..">
         </div>
+        <div class="col-sm-4">
+            <button type="submit" class="btn btn-primary">Search Weather</button>
+        </div>
+    </div>
+</form>
+</div>
 
         <!-- Weather Card that updates dynamically -->
         <div class="card">
-            <div class="city" th:text="${city}"></div>
+            <div class="city" th:text="${weather.city}"></div>
             <br>
             <div class="temp">
-                <div id="headline" th:text="${headline}">Oops!</div>
+                <div id="headline" th:text="${weather.headline}">Oops!</div>
                 <div><img src="" id="mainWeatherIcon" width="100" height="100"></div>
-                <div th:text="${currentTemp}">Oops!</div>
+                <div th:text="${weather.currentTemp+'°c'}">Oops!</div>
             </div>
             <div class="forecast">
                 <div class="day"> Wind Speed
-                    <br> <img src="https://cdn2.iconfinder.com/data/icons/weather-special/78/12-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${wind}">oops!</span> <br> <span class="lowLimit">km/h</span>
+                    <br> <img src="https://cdn2.iconfinder.com/data/icons/weather-special/78/12-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${weather.wind}">oops!</span> <br> <span class="lowLimit">km/h</span>
                 </div>
                 <div class="day"> Max and Min Temp
-                    <br> <img src="https://cdn1.iconfinder.com/data/icons/luchesa-2/128/Temperature-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${maxTemp}">oops!</span> <br> <span class="lowLimit" th:text="${minTemp}">oops!</span>
+                    <br> <img src="https://cdn1.iconfinder.com/data/icons/luchesa-2/128/Temperature-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${weather.maxTemp+'°c'}">oops!</span> <br> <span class="lowLimit" th:text="${weather.minTemp+'°c'}">oops!</span>
                 </div>
                 <div class="day">Sunrise and Sunset
-                    <br> <img src="https://cdn1.iconfinder.com/data/icons/landscape-v-1/512/Landscape_Circle_1_512px_00007-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${sunrise}">oops!</span> <br> <span class="lowLimit" th:text="${sunset}">oops!</span>
+                    <br> <img src="https://cdn1.iconfinder.com/data/icons/landscape-v-1/512/Landscape_Circle_1_512px_00007-512.png" width="42" height="42"> <br> <span class="highLimit" th:text="${weather.sunrise}">oops!</span> <br> <span class="lowLimit" th:text="${weather.sunset}">oops!</span>
                 </div>
                 <div class="day">Description
-                    <br> <img src="https://cdn4.iconfinder.com/data/icons/weather-flat-icons-1/100/sunny_cloud-512.png" width="50" height="50"> <br> <span class="highLimit" th:text="${description}">oops!</span>
+                    <br> <img src="https://cdn4.iconfinder.com/data/icons/weather-flat-icons-1/100/sunny_cloud-512.png" width="50" height="50"> <br> <span class="highLimit" th:text="${weather.description}">oops!</span>
                 </div>
             </div>
         </div>
@@ -67,16 +67,35 @@
         <!-- history table -->
         <div class="jumbotron" id="history-table">
             <div class="crud-form-field">
-                <form class="crud-form"  th:action="@{/checkWeather}" method="post">
+                <form class="crud-form"  th:action="@{/checkWeather}" th:object="${weather}" method="post">
                     <div class="form-group">
-                        <input type="text" name="city" class="form-control" th:value="${city}" placeholder="Enter City"/>
-                        <input type="text" name="headline" class="form-control" th:value="${headline}" placeholder="Enter Headline">
-                        <input type="text" name="description" class="form-control" th:value="${description}" placeholder="Enter Description">
-                        <input type="text" name="currentTemp" class="form-control" th:value="${currentTemp}" placeholder="Enter Current Temp">
-                        <input type="text" name="minTemp" class="form-control" th:value="${minTemp}" placeholder="Enter Min Temp">
-                        <input type="text" name="maxTemp" class="form-control" th:value="${maxTemp}" placeholder="Enter Max Temp">
-                        <input type="text" name="sunrise" class="form-control" th:value="${sunrise}" placeholder="Enter Sunrise">
-                        <input type="text" name="sunset" class="form-control" th:value="${sunset}" placeholder="Enter Sunset">
+                        <label th:for="city" style="float:left;margin-right:5px;"> City Name: </label>
+                        <input type="text" name="city" class="form-control" th:value="${weather.city}" placeholder="Enter City" />
+
+                        <label th:for="headline" style="float:left;margin-right:5px;"> Headline: </label>
+                        <input type="text" name="headline" class="form-control" th:value="${weather.headline}" placeholder="Enter Headline" />
+
+                        <label th:for="description" style="float:left;margin-right:5px;"> Description: </label>
+                        <input type="text" name="description" class="form-control" th:value="${weather.description}" placeholder="Enter Description" />
+
+                        <label th:for="currentTemp" style="float:left;margin-right:5px;"> Current Temperature: </label>
+                        <input type="text" name="currentTemp" class="form-control" th:value="${weather.currentTemp}" placeholder="Enter Current Temp" th:field="*{currentTemp}" />
+                        <p class="validation-error" th:if="${#fields.hasErrors('currentTemp')}" th:errors="*{currentTemp}"></p>
+
+                        <label th:for="minTemp" style="float:left;margin-right:5px;"> Minimum Temperature: </label>
+                        <input type="text" name="minTemp" class="form-control" th:value="${weather.minTemp}" placeholder="Enter Min Temp" />
+
+                        <label th:for="maxTemp" style="float:left;margin-right:5px;"> Maximum Temperature: </label>
+                        <input type="text" name="maxTemp" class="form-control" th:value="${weather.maxTemp}" placeholder="Enter Max Temp" />
+
+                        <label th:for="sunrise" style="float:left;margin-right:5px;"> Sunrise: </label>
+                        <input type="text" name="sunrise" class="form-control" th:value="${weather.sunrise}" placeholder="Enter Sunrise" />
+
+                        <label th:for="sunset" style="float:left;margin-right:5px;"> Sunset: </label>
+                        <input type="text" name="sunset" class="form-control" th:value="${weather.sunset}" placeholder="Enter Sunset" />
+
+                        <input type="hidden" name="icon" class="form-control" th:value="${weather.icon}" placeholder="Enter Wind"/>
+                        <input type="hidden" name="wind" class="form-control" th:value="${weather.wind}" placeholder="Enter Icon"/>
                     </div>
                     <div class="submit-crudform">
                         <button type="submit" name="action" value ="add" class="btn btn-outline-success"><i class="fas fa-plus-circle"></i> Add</button>
@@ -120,7 +139,7 @@
     <!-- script to form icon url from `icon`-->
     <script th:inline="javascript">
         /*<![CDATA[*/
-            let icon = /*[[${icon}]]*/ 'default';
+            let icon = /*[[${weather.icon}]]*/ 'default';
         /*]]>*/
         let icon_url = "http://openweathermap.org/img/w/"+icon+".png"
         document.getElementById('mainWeatherIcon').src = icon_url;

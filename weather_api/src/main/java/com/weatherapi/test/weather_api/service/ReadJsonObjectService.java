@@ -31,7 +31,7 @@ public class ReadJsonObjectService {
         weatherFactory.setDescription(jsonResultObject.get("weather").get(0).get("description").toString().replaceAll("^\"|\"$",""));
         weatherFactory.setHeadline(jsonResultObject.get("weather").get(0).get("main").toString().replaceAll("^\"|\"$",""));
         weatherFactory.setWind(jsonResultObject.get("wind").get("speed").toString().replaceAll("^\"|\"$",""));
-        weatherFactory.setCurrentTemp(jsonResultObject.get("main").get("temp").toString().replaceAll("^\"|\"$",""));
+        weatherFactory.setCurrentTemp(Float.valueOf(jsonResultObject.get("main").get("temp").toString().replaceAll("^\"|\"$","")));
         weatherFactory.setMinTemp(jsonResultObject.get("main").get("temp_min").toString().replaceAll("^\"|\"$",""));
         weatherFactory.setMaxTemp(jsonResultObject.get("main").get("temp_max").toString().replaceAll("^\"|\"$",""));
         weatherFactory.setSunrise(jsonResultObject.get("sys").get("sunrise").toString().replaceAll("^\"|\"$",""));

@@ -1,8 +1,8 @@
 package com.weatherapi.test.weather_api.rest;
 
 import com.weatherapi.test.weather_api.config.WeatherDatabaseConfig;
-import com.weatherapi.test.weather_api.dao.UserDatabase;
 import com.weatherapi.test.weather_api.model.Weather;
+import com.weatherapi.test.weather_api.service.ConvertMillisecondsService;
 import com.weatherapi.test.weather_api.service.CrudService;
 import com.weatherapi.test.weather_api.service.GetWeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +25,8 @@ public class WeatherRestController {
     private GetWeatherService getWeatherService;
     @Autowired
     private CrudService crudService;
+    @Autowired
+    private ConvertMillisecondsService convertMillisecondsService;
 
     /*
      * get weather data from open weather map api
@@ -36,19 +38,12 @@ public class WeatherRestController {
             throws IOException,HttpClientErrorException.NotFound {
         try{
             Weather result = getWeatherService.getNewWeatherObject(city);
+            result.setSunrise(convertMillisecondsService.convertToTime(Long.parseLong(result.getSunrise())));
+            result.setSunset(convertMillisecondsService.convertToTime(Long.parseLong(result.getSunset())));
             map.put("weatherList",crudService.getAllWeatherList());
+            model.addAttribute("weather",result);
             model.addAttribute("weatherMap",map);
-            model.addAttribute("city",city);
-            model.addAttribute("headline", result.getHeadline());
-            model.addAttribute("description", result.getDescription());
-            model.addAttribute("icon", result.getIcon());
-            model.addAttribute("wind", result.getWind());
-            model.addAttribute("currentTemp", result.getCurrentTemp());
-            model.addAttribute("minTemp", result.getMinTemp());
-            model.addAttribute("maxTemp", result.getMaxTemp());
-            model.addAttribute("sunrise", result.getSunrise());
-            model.addAttribute("sunset", result.getSunset());
-            model.addAttribute("unit", result.getUnit());
+            model.addAttribute("city",city.substring(0,1).toUpperCase()+city.substring(1));
         }catch (HttpClientErrorException e){
             LOGGER.info("Typed City cannot be found, please type name correctly! Aborting program..");
             return "notfound";

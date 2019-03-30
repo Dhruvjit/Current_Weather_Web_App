@@ -15,7 +15,7 @@ public class UserDatabase {
     UserDatabaseConfig userDatabaseConfig = factory.getBean(UserDatabaseConfig.class);
 
     public void saveData(UserData userData){
-        userDatabaseConfig.CreateUserInDatabase(userData);
+        userDatabaseConfig.addUserInDatabase(userData);
     }
 
     public List<UserData> readData(UserData userData){
