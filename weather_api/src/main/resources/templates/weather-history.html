@@ -70,29 +70,31 @@
                 <form class="crud-form"  th:action="@{/checkWeather}" th:object="${weather}" method="post">
                     <div class="form-group">
                         <label th:for="city" style="float:left;margin-right:5px;"> City Name: </label>
-                        <input type="text" name="city" class="form-control" th:value="${weather.city}" placeholder="Enter City" />
+                        <input type="text" name="city" class="form-control" th:value="${weather.city}" placeholder="Enter City" required/>
 
                         <label th:for="headline" style="float:left;margin-right:5px;"> Headline: </label>
-                        <input type="text" name="headline" class="form-control" th:value="${weather.headline}" placeholder="Enter Headline" />
+                        <input type="text" name="headline" class="form-control" th:value="${weather.headline}" placeholder="Enter Headline" required/>
 
                         <label th:for="description" style="float:left;margin-right:5px;"> Description: </label>
-                        <input type="text" name="description" class="form-control" th:value="${weather.description}" placeholder="Enter Description" />
+                        <input type="text" name="description" class="form-control" th:value="${weather.description}" placeholder="Enter Description" required/>
 
                         <label th:for="currentTemp" style="float:left;margin-right:5px;"> Current Temperature: </label>
-                        <input type="text" name="currentTemp" class="form-control" th:value="${weather.currentTemp}" placeholder="Enter Current Temp" th:field="*{currentTemp}" />
+                        <input type="text" name="currentTemp" class="form-control" th:value="${weather.currentTemp}" placeholder="Enter Current Temp" th:field="*{currentTemp}" required/>
                         <p class="validation-error" th:if="${#fields.hasErrors('currentTemp')}" th:errors="*{currentTemp}"></p>
 
                         <label th:for="minTemp" style="float:left;margin-right:5px;"> Minimum Temperature: </label>
-                        <input type="text" name="minTemp" class="form-control" th:value="${weather.minTemp}" placeholder="Enter Min Temp" />
+                        <input type="text" name="minTemp" class="form-control" th:value="${weather.minTemp}" placeholder="Enter Min Temp" required/>
 
                         <label th:for="maxTemp" style="float:left;margin-right:5px;"> Maximum Temperature: </label>
-                        <input type="text" name="maxTemp" class="form-control" th:value="${weather.maxTemp}" placeholder="Enter Max Temp" />
+                        <input type="text" name="maxTemp" class="form-control" th:value="${weather.maxTemp}" placeholder="Enter Max Temp" required/>
 
                         <label th:for="sunrise" style="float:left;margin-right:5px;"> Sunrise: </label>
-                        <input type="text" name="sunrise" class="form-control" th:value="${weather.sunrise}" placeholder="Enter Sunrise" />
+                        <input type="text" name="sunrise" class="form-control" th:value="${weather.sunrise}" placeholder="Enter Sunrise" th:field="*{sunrise}" required/>
+                        <p class="validation-error" th:if="${#fields.hasErrors('sunrise')}" th:errors="*{sunrise}"></p>
 
                         <label th:for="sunset" style="float:left;margin-right:5px;"> Sunset: </label>
-                        <input type="text" name="sunset" class="form-control" th:value="${weather.sunset}" placeholder="Enter Sunset" />
+                        <input type="text" name="sunset" class="form-control" th:value="${weather.sunset}" placeholder="Enter Sunset" th:field="*{sunset}" required/>
+                        <p class="validation-error" th:if="${#fields.hasErrors('sunset')}" th:errors="*{sunset}"></p>
 
                         <input type="hidden" name="icon" class="form-control" th:value="${weather.icon}" placeholder="Enter Wind"/>
                         <input type="hidden" name="wind" class="form-control" th:value="${weather.wind}" placeholder="Enter Icon"/>

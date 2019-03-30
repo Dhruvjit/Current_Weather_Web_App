@@ -4,6 +4,7 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -32,9 +33,15 @@ public class Weather {
 
     @Range(min=0, max=100, message = "length for current temperature should be less than 100")
     private float currentTemp;
+
     private String minTemp;
+
     private String maxTemp;
+
+    @Pattern(regexp = "^([012]{0,1}[0-9]:[0-6][0-9]$)", message = "Time Pattern incorrect! only HH:MM allowed")
     private String sunrise;
+
+    @Pattern(regexp = "^([012]{0,1}[0-9]:[0-6][0-9]$)", message = "Time Pattern incorrect! only HH:MM allowed")
     private String sunset;
 
     @Transient

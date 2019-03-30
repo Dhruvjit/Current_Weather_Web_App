@@ -10,7 +10,7 @@ import java.util.TimeZone;
 public class ConvertMillisecondsService {
     public String convertToTime(long milliSeconds){
         Date dateObject = new Date(milliSeconds);
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         return timeFormat.format(dateObject);
     }

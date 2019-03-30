@@ -32,12 +32,16 @@ public class CrudController {
         map.put("weatherList",crudService.getAllWeatherList());
         model.addAttribute("weatherMap",map);
         model.addAttribute("weather",weather);
+
         if(action.equals("add")){
             if(errors.hasErrors()){
                 return "weather-history";
             }
             crudService.add(weather);
         }else if (action.equals("edit")){
+            if(errors.hasErrors()){
+                return "weather-history";
+            }
             crudService.edit(weather,weather.getCity());
         }else if (action.equals("delete")){
             crudService.delete(weather);
