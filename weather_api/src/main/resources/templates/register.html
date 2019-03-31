@@ -32,9 +32,11 @@
 
             <!-- validate user and show error message -->
             <div class="validator" th:if="${userRegisterExistent}">
-                <div>User with this name or birthdate already exists in Database! Please Login or enter new credentials!</div>
+                <div>User with same name/birthdate already exists in Database! Please Login or enter new credentials!</div>
             </div>
             <!-- -->
+
+            <p></p>
 
             <div class="col-12 register-new-userData">
                 <a href="/login">Already a User? Signin</a>

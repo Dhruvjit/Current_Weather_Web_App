@@ -14,6 +14,10 @@ import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.logging.Logger;
 
+/*
+* This controller manages user login, register and all important validations
+* on respective fields to avoid broken pages
+* */
 @Controller
 public class UserRestController {
     Logger LOGGER = Logger.getLogger(WeatherDatabaseConfig.class.getName());

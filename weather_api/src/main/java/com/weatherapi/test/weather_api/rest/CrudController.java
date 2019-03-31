@@ -1,6 +1,5 @@
 package com.weatherapi.test.weather_api.rest;
 
-import com.weatherapi.test.weather_api.config.WeatherDatabaseConfig;
 import com.weatherapi.test.weather_api.model.Weather;
 import com.weatherapi.test.weather_api.service.CrudService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Map;
-import java.util.logging.Logger;
 
+/*
+* Controller that performs all the CRUD operations on weather queries
+* This gets invoked when user sends the request from the user table
+* to perform database operations
+* */
 @Controller
 public class CrudController {
-    Logger LOGGER = Logger.getLogger(WeatherDatabaseConfig.class.getName());
 
     @Autowired
     private CrudService crudService;

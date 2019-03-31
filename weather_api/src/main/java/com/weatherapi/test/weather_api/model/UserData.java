@@ -5,6 +5,9 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/*
+* Model Class for Users
+* */
 @Entity
 @Table(name="user_details")
 @Data

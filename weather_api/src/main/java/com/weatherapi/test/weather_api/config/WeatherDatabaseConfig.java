@@ -5,11 +5,13 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.springframework.dao.DuplicateKeyException;
 
 import java.util.List;
 import java.util.logging.Logger;
 
+/*
+ * Class that does transaction with `weather` database
+ * */
 @org.springframework.context.annotation.Configuration
 public class WeatherDatabaseConfig {
     private final static Logger LOGGER = Logger.getLogger(WeatherDatabaseConfig.class.getName());

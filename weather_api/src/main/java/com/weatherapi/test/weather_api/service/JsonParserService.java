@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+/*
+* this service assists in converting JSON data into node
+* */
 @Service
 public class JsonParserService {
     private ObjectMapper mapper;

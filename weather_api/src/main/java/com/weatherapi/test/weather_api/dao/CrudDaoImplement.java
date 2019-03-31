@@ -7,6 +7,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
+/*
+* This repository helps other services to connect with Weather Database
+* */
 @Repository
 public class CrudDaoImplement implements CrudDao{
 

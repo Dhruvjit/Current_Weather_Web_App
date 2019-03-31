@@ -25,19 +25,19 @@
 
     <div class="flexstyle-mainlayout">
 
-<!-- City search form and button -->
-<div class="search-wrapper">
-<form class="navbar-form" th:action="@{/checkWeather}" method="get">
-    <div class="row">
-        <div class="col-lg-8">
-            <input type="text" name="city" class="form-control" placeholder="Type the name of the city..">
+        <!-- City search form and button -->
+        <div class="search-wrapper">
+        <form class="navbar-form" th:action="@{/checkWeather}" method="get">
+            <div class="row">
+                <div class="col-lg-8">
+                    <input type="text" name="city" class="form-control" placeholder="Type the name of the city.." required>
+                </div>
+                <div class="col-sm-4">
+                    <button type="submit" class="btn btn-primary">Search Weather</button>
+                </div>
+            </div>
+        </form>
         </div>
-        <div class="col-sm-4">
-            <button type="submit" class="btn btn-primary">Search Weather</button>
-        </div>
-    </div>
-</form>
-</div>
 
         <!-- Weather Card that updates dynamically -->
         <div class="card">
@@ -83,10 +83,12 @@
                         <p class="validation-error" th:if="${#fields.hasErrors('currentTemp')}" th:errors="*{currentTemp}"></p>
 
                         <label th:for="minTemp" style="float:left;margin-right:5px;"> Minimum Temperature: </label>
-                        <input type="text" name="minTemp" class="form-control" th:value="${weather.minTemp}" placeholder="Enter Min Temp" required/>
+                        <input type="text" name="minTemp" class="form-control" th:value="${weather.minTemp}" placeholder="Enter Min Temp" th:field="*{minTemp}" required/>
+                        <p class="validation-error" th:if="${#fields.hasErrors('minTemp')}" th:errors="*{minTemp}"></p>
 
                         <label th:for="maxTemp" style="float:left;margin-right:5px;"> Maximum Temperature: </label>
-                        <input type="text" name="maxTemp" class="form-control" th:value="${weather.maxTemp}" placeholder="Enter Max Temp" required/>
+                        <input type="text" name="maxTemp" class="form-control" th:value="${weather.maxTemp}" placeholder="Enter Max Temp" th:field="*{maxTemp}" required/>
+                        <p class="validation-error" th:if="${#fields.hasErrors('maxTemp')}" th:errors="*{maxTemp}"></p>
 
                         <label th:for="sunrise" style="float:left;margin-right:5px;"> Sunrise: </label>
                         <input type="text" name="sunrise" class="form-control" th:value="${weather.sunrise}" placeholder="Enter Sunrise" th:field="*{sunrise}" required/>

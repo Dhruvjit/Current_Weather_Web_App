@@ -8,10 +8,16 @@ import org.hibernate.cfg.Configuration;
 import java.util.List;
 import java.util.logging.Logger;
 
+/*
+* Class that does transaction with `user_details` database
+* */
 @org.springframework.context.annotation.Configuration
 public class UserDatabaseConfig {
     private final static Logger LOGGER = Logger.getLogger(WeatherDatabaseConfig.class.getName());
 
+    /*
+     * Class to add new user to database
+     * */
     public void addUserInDatabase(UserData userData){
         // Create Session Factory
         SessionFactory factory = new Configuration().
@@ -33,6 +39,9 @@ public class UserDatabaseConfig {
         }
     }
 
+    /*
+     * Class to read users from Database according to Name query
+     * */
     public List<UserData> readUserFromDatabase(UserData userData){
         // Create Session Factory
         SessionFactory factory = new Configuration().
@@ -60,6 +69,9 @@ public class UserDatabaseConfig {
         }
     }
 
+    /*
+     * Class to read users from Database according to Date of Birth Query
+     * */
     public List<UserData> readUserByBirthdayFromDatabase(UserData userData){
         // Create Session Factory
         SessionFactory factory = new Configuration().

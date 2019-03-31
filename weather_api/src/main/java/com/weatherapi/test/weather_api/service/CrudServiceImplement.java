@@ -9,6 +9,9 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 
+/*
+* service that manages CRUD operations with repository
+* */
 @Service
 public class CrudServiceImplement implements CrudService {
 
@@ -22,13 +25,13 @@ public class CrudServiceImplement implements CrudService {
     private MillisecondsToTimeService millisecondsToTimeService;
 
     @Transactional
-    public void add(Weather weather){
+    public void add(Weather weather) {
         crudDao.add(weather);
     }
 
     @Transactional
-    public void edit(Weather weather, String city){
-        crudDao.edit(weather,city);
+    public void edit(Weather weather, String city) {
+        crudDao.edit(weather, city);
     }
 
     @Transactional
@@ -42,12 +45,12 @@ public class CrudServiceImplement implements CrudService {
     }
 
     @Transactional
-    public void delete(Weather weather){
+    public void delete(Weather weather) {
         crudDao.delete(weather);
     }
 
     @Transactional
-    public List getAllWeatherList(){
+    public List getAllWeatherList() {
         return crudDao.getAllWeatherList();
     }
 

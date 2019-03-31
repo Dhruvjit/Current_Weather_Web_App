@@ -7,6 +7,10 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 
+/*
+* This service returns real time weather information from openweathermap API
+* and converts it into Weather object
+* */
 @Service
 public class GetWeatherService {
 

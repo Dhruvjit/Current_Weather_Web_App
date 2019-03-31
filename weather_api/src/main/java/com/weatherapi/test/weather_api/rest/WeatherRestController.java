@@ -15,7 +15,11 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Logger;
 
-
+/*
+ * This Controller gets invoked when user gets redirected after
+ * successful login. It shows the initial page with weather readings
+ * and history tables whose entries are fetched from database
+ * */
 @Controller
 public class WeatherRestController {
 

@@ -6,6 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
+/*
+* this service assists in converting the time in json format represented by milliseconds
+* to java format time in UTC format
+* */
 @Service
 public class MillisecondsToTimeService {
     public String convertToTime(long milliSeconds){
