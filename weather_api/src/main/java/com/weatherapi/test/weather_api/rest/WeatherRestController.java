@@ -2,7 +2,7 @@ package com.weatherapi.test.weather_api.rest;
 
 import com.weatherapi.test.weather_api.config.WeatherDatabaseConfig;
 import com.weatherapi.test.weather_api.model.Weather;
-import com.weatherapi.test.weather_api.service.ConvertMillisecondsService;
+import com.weatherapi.test.weather_api.service.MillisecondsToTimeService;
 import com.weatherapi.test.weather_api.service.CrudService;
 import com.weatherapi.test.weather_api.service.GetWeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class WeatherRestController {
     @Autowired
     private CrudService crudService;
     @Autowired
-    private ConvertMillisecondsService convertMillisecondsService;
+    private MillisecondsToTimeService millisecondsToTimeService;
 
     /*
      * get weather data from open weather map api
@@ -38,8 +38,8 @@ public class WeatherRestController {
             throws IOException,HttpClientErrorException.NotFound {
         try{
             Weather result = getWeatherService.getNewWeatherObject(city);
-            result.setSunrise(convertMillisecondsService.convertToTime(Long.parseLong(result.getSunrise())));
-            result.setSunset(convertMillisecondsService.convertToTime(Long.parseLong(result.getSunset())));
+            result.setSunrise(millisecondsToTimeService.convertToTime(Long.parseLong(result.getSunrise())));
+            result.setSunset(millisecondsToTimeService.convertToTime(Long.parseLong(result.getSunset())));
             map.put("weatherList",crudService.getAllWeatherList());
             model.addAttribute("weather",result);
             model.addAttribute("weatherMap",map);

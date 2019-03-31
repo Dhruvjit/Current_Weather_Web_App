@@ -30,6 +30,12 @@
                 <button type="submit" class="btn"><i class="fas fa-user-plus"></i> Register </button>
             </form>
 
+            <!-- validate user and show error message -->
+            <div class="validator" th:if="${userRegisterExistent}">
+                <div>User with this name or birthdate already exists in Database! Please Login or enter new credentials!</div>
+            </div>
+            <!-- -->
+
             <div class="col-12 register-new-userData">
                 <a href="/login">Already a User? Signin</a>
             </div>

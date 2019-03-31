@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.logging.Logger;
 
 @Controller
@@ -33,10 +33,9 @@ public class UserRestController {
      * store user registered value in database and redirect to login
      * */
     @PostMapping("/login")
-    public String login(@ModelAttribute(name="userData") UserData userData,
-                        Model model) {
-        if(userService.userExist(userData)){
-            // default weather on login
+    public String login(@ModelAttribute(name="userData") UserData userData,Model model) {
+        if(userService.userLoginExist(userData)){
+            // default weather of city on login
             return "redirect:/checkWeather?city=Munich";
         }else{
             LOGGER.info("user does not exists, register yourself!");
@@ -57,7 +56,15 @@ public class UserRestController {
      * store user registered value in database and redirect to login
      * */
     @PostMapping("/register")
-    public String register(@ModelAttribute(name="userData") UserData userData) {
+    public String register(@ModelAttribute(name="userData") UserData userData,Model model) throws ParseException {
+        if(userService.userRegisterExist(userData)){
+            model.addAttribute("userRegisterExistent","true");
+            return "register";
+        }
+        if(userService.doBirthdayExist(userData)){
+            model.addAttribute("userRegisterExistent","true");
+            return "register";
+        }
         userService.save(userData);
         return "redirect:/login";
     }

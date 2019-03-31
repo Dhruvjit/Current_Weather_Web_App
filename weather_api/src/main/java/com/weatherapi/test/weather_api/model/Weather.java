@@ -38,10 +38,10 @@ public class Weather {
 
     private String maxTemp;
 
-    @Pattern(regexp = "^([012]{0,1}[0-9]:[0-6][0-9]$)", message = "Time Pattern incorrect! only HH:MM allowed")
+    @Pattern(regexp = "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$", message = "Incorrect! only HH:MM allowed where H->[0-23] and M->[0-59]")
     private String sunrise;
 
-    @Pattern(regexp = "^([012]{0,1}[0-9]:[0-6][0-9]$)", message = "Time Pattern incorrect! only HH:MM allowed")
+    @Pattern(regexp = "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$", message = "Incorrect!only HH:MM allowed where H->[0-23] and M->[0-59]")
     private String sunset;
 
     @Transient

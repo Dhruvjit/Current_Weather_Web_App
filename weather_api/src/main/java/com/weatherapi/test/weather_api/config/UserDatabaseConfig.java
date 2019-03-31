@@ -25,7 +25,7 @@ public class UserDatabaseConfig {
         try{
             LOGGER.info("created new UserData...");
             System.out.println(userData);
-            session.save(userData);
+            session.saveOrUpdate(userData);
             session.getTransaction().commit();
             LOGGER.info("new UserData created!");
         } finally {
@@ -48,6 +48,33 @@ public class UserDatabaseConfig {
             System.out.println(userData);
             Query query = session.createQuery("from UserData u where u.name = :name");
             query.setParameter("name",userData.getName());
+            List<UserData> retrievedUserData = query.list();
+            session.getTransaction().commit();
+            LOGGER.info("reading user object done!");
+            return retrievedUserData;
+        } catch (NullPointerException e){
+            LOGGER.info("No user value returned, name is invalid or is not present");
+            return null;
+        } finally {
+            factory.close();
+        }
+    }
+
+    public List<UserData> readUserByBirthdayFromDatabase(UserData userData){
+        // Create Session Factory
+        SessionFactory factory = new Configuration().
+                configure("hibernate.cfg.xml").
+                addAnnotatedClass(UserData.class).
+                buildSessionFactory();
+        // Create Session
+        Session session = factory.getCurrentSession();
+        // Begin Transaction
+        session.getTransaction().begin();
+        try{
+            LOGGER.info("fetching user from database...");
+            System.out.println(userData);
+            Query query = session.createQuery("from UserData u where u.dateOfBirth = :dateOfBirth");
+            query.setParameter("dateOfBirth",userData.getDateOfBirth());
             List<UserData> retrievedUserData = query.list();
             session.getTransaction().commit();
             LOGGER.info("reading user object done!");

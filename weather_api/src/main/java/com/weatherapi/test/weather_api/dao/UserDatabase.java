@@ -18,7 +18,12 @@ public class UserDatabase {
         userDatabaseConfig.addUserInDatabase(userData);
     }
 
-    public List<UserData> readData(UserData userData){
+    public List<UserData> readDataByName(UserData userData){
         return userDatabaseConfig.readUserFromDatabase(userData);
     }
+
+    public List<UserData> readDataByBirthday(UserData userData){
+        return userDatabaseConfig.readUserByBirthdayFromDatabase(userData);
+    }
+
 }

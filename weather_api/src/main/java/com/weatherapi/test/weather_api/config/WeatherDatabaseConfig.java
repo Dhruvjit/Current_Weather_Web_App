@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class WeatherDatabaseConfig {
     private final static Logger LOGGER = Logger.getLogger(WeatherDatabaseConfig.class.getName());
 
-    public void AddCityInDatabase(Weather weather){
+    public boolean AddCityInDatabase(Weather weather){
         // Create Session Factory
         SessionFactory factory = new Configuration().
                 configure("hibernate.cfg.xml").
@@ -26,12 +26,19 @@ public class WeatherDatabaseConfig {
         session.getTransaction().begin();
         try{
             LOGGER.info("saving the weather data...");
-            System.out.println(weather);
-            session.save(weather);
-            session.getTransaction().commit();
-            LOGGER.info("saving weather object done!");
-        } catch (DuplicateKeyException e){
-            LOGGER.info("weather for the desired city already exists in the database! please delete or update it first");
+            Query query = session.createQuery("from Weather wt where wt.city = :city");
+            query.setParameter("city",weather.getCity());
+            List<Weather> retrievedWeatherData = query.list();
+            if(retrievedWeatherData.size()!=0){
+                System.out.println(weather);
+                LOGGER.info("weather for this city already exists, try saving another city");
+                return false;
+            }else{
+                session.save(weather);
+                session.getTransaction().commit();
+                LOGGER.info("Saving Failed! Database not Found! Please check/Input city name correctly");
+                return true;
+            }
         }finally {
             factory.close();
         }
@@ -75,8 +82,7 @@ public class WeatherDatabaseConfig {
             query.setParameter("city",deleteCityFromDb.getCity());
             List<Weather> retrievedWeatherData = query.list();
             if(retrievedWeatherData.size()!=0){
-                Weather wt = (Weather) session.get(Weather.class,retrievedWeatherData.get(0).getId());
-                session.delete(wt);
+                session.delete(retrievedWeatherData.get(0));
                 session.getTransaction().commit();
                 LOGGER.info("Deleting weather object! done!");
                 return true;
@@ -84,12 +90,7 @@ public class WeatherDatabaseConfig {
                 LOGGER.info("Deletion Failed! Database not Found! Please check/Input city name correctly");
                 return false;
             }
-
-        }catch (NullPointerException e) {
-            LOGGER.info("Weather value returned null");
-            return null;
-        }
-        finally {
+        }finally {
             factory.close();
         }
     }
@@ -125,9 +126,6 @@ public class WeatherDatabaseConfig {
                     LOGGER.info("No Weather value returned, City name is invalid or is not present");
                     return false;
             }
-            } catch (NullPointerException e){
-                LOGGER.info("Weather value returned null");
-                return false;
             } finally {
             factory.close();
         }
@@ -164,9 +162,6 @@ public class WeatherDatabaseConfig {
                 LOGGER.info("No Weather value returned, City name is invalid or is not present");
                 return false;
             }
-        } catch (NullPointerException e){
-            LOGGER.info("Weather value returned null");
-            return false;
         } finally {
             factory.close();
         }
