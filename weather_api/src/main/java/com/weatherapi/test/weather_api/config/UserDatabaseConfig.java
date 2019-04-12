@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 /*
 * Class that does transaction with `user_details` database
 * */
-@org.springframework.context.annotation.Configuration
 public class UserDatabaseConfig {
     private final static Logger LOGGER = Logger.getLogger(WeatherDatabaseConfig.class.getName());
 
